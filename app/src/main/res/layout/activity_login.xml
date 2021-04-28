@@ -5,10 +5,71 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
+    android:id="@+id/button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="로그인 화면" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:text="로그인(대충 했다 침)" />
+        android:ems="10"
+        android:layout_marginTop="60dp"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:layout_gravity="center"
+        android:textSize="24sp"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:hint="Password"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#0ED6B9"
+        android:text="Login"
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="비밀번호 재설정"
+            android:layout_marginLeft="100dp"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:textStyle="bold"
+            android:layout_marginLeft="30dp"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
