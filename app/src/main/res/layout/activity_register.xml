@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="60dp"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:layout_gravity="center"
+        android:textSize="24sp"/>
+
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:hint="Your Nickname"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:hint="Password"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#0ED6B9"
+        android:text="Sign Up"
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        android:textStyle="bold"/>
+
+
+
+</LinearLayout>
