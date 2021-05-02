@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterActivity extends AppCompatActivity {
 
     Button buttonRegister;
-    EditText editTextEmail, editTextNickname, editTextPassword;
+    EditText editTextEmail, editTextNickname, editTextPassword, editTextConfirm;
     FirebaseAuth mAuth;
 
     @Override
@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextNickname = (EditText) findViewById(R.id.nickname);
         editTextPassword = (EditText) findViewById(R.id.password);
         buttonRegister = (Button) findViewById(R.id.register);
+        editTextConfirm = (EditText) findViewById(R.id.confirm);
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -57,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         final String email = editTextEmail.getText().toString().trim();
         final String nickname = editTextNickname.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String confirm = editTextConfirm.getText().toString().trim();
 
 
         // 각각의 스트링 조건 검사
@@ -81,6 +83,12 @@ public class RegisterActivity extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
+        if (!password.equals(confirm)){
+            editTextPassword.setError("비밀번호가 일치하지 않습니다.");
+            editTextPassword.requestFocus();
+            return;
+        }
+
         mAuth.createUserWithEmailAndPassword(email, password) // email, password 로 회원가입
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 
