@@ -11,7 +11,10 @@ import android.widget.EditText;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    Button button;
+    Button buttonHome;
+    Button buttonRequest;
+    Button buttonChatting;
+    Button buttonMyPage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,13 +24,35 @@ public class MainActivity extends AppCompatActivity {
         setButtonClickListener();
     }
 
-    private void initView() { button = (Button) findViewById(R.id.button); }
+    private void initView() {
+        buttonHome = (Button) findViewById(R.id.home);
+        buttonRequest = (Button) findViewById(R.id.request);
+        buttonChatting = (Button) findViewById(R.id.chatting);
+        buttonMyPage = (Button) findViewById(R.id.mypage);
+    }
 
     private void setButtonClickListener() {
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonHome.setOnClickListener(new View.OnClickListener() { // 홈버튼
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), DeliverRequestActivity.class));       // 버튼 클릭시 DeliverRequestActivity 로 이동
+            }
+        });
+        buttonRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { // 버튼 클릭시 DeliverRequestActivity 로 이동
+                startActivity(new Intent(getApplicationContext(), DeliverRequestActivity.class));
+            }
+        });
+        buttonChatting.setOnClickListener(new View.OnClickListener() { // 채팅창 이동 버튼
+            @Override
+            public void onClick(View view) {
+//                startActivity(new Intent(getApplicationContext(), ChattingActivity.class));
+            }
+        });
+        buttonMyPage.setOnClickListener(new View.OnClickListener() { // 마이페이지 이동 버튼
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
             }
         });
     }

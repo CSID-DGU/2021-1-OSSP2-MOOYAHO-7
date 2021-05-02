@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextPassword;
     TextView register;
+    TextView reset;
     FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
         register = (TextView) findViewById(R.id.register);
+        reset = (TextView) findViewById(R.id.reset);
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -66,6 +68,13 @@ public class LoginActivity extends AppCompatActivity {
                 userLogin();
             }
         });
+
+        reset.setOnClickListener(new View.OnClickListener() { // 비밀번호 리셋 창으로 이동
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ResetPasswordActivity.class));
+            }
+        });
     }
 
     private void userLogin() { // 로그인을 담당하는 함수
@@ -76,17 +85,17 @@ public class LoginActivity extends AppCompatActivity {
 
         
         // 각각 string 조건 검사
-        if(email.isEmpty()){
+        if(email.isEmpty()){ // 이메일 비어있음
             editTextEmail.setError("Email is required!");
             editTextEmail.requestFocus();
             return;
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ // 이메일 이상함
             editTextEmail.setError("Please enter a valid email!");
             editTextEmail.requestFocus();
             return;
         }
-        if(password.isEmpty()){
+        if(password.isEmpty()){ // 비밀번호 비어있음
             editTextPassword.setError("Password is required!");
             editTextPassword.requestFocus();
             return;
@@ -102,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(user.isEmailVerified()){ // 이메일 인증 됐을 시 메인액티비티로
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
                     }
                     else{ // 아니면 안보내줌
                         Toast.makeText(LoginActivity.this, "이메일 인증 후 다시 눌러주세요",Toast.LENGTH_LONG).show();

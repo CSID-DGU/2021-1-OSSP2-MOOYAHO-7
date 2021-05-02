@@ -11,15 +11,52 @@
         android:text="지도입니다."
         android:textSize="30dp"
         android:gravity="center_vertical|center_horizontal"/>
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="요청하기" />
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:text="Main 화면 입니다."
         android:textSize="30dp"
         android:gravity="center_vertical|center_horizontal"/>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="홈"
+            android:layout_marginLeft="5dp"/>
+        <Button
+            android:id="@+id/request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="요청"
+            android:layout_marginLeft="5dp"/>
+
+            <Button
+            android:id="@+id/chatting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="채팅"
+            android:layout_marginLeft="5dp"/>
+
+            <Button
+            android:id="@+id/mypage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="마이 페이지"
+            android:layout_marginLeft="5dp"/>
+
+
+    </LinearLayout>
+
+
+
+
 </LinearLayout>
