@@ -1,4 +1,4 @@
-package com.example.mooyaho;
+package com.example.mooyaho.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.mooyaho.PostResult;
 
 import java.util.ArrayList;
 
