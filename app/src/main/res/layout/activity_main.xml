@@ -6,16 +6,4 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-    <com.naver.maps.map.MapView
-        android:id="@+id/map_view"
-        android:layout_width="291dp"
-        android:layout_height="509dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </com.naver.maps.map.MapView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
