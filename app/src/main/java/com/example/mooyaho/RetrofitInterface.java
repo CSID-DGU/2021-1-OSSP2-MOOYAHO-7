@@ -1,6 +1,8 @@
 package com.example.mooyaho;
 
 import java.util.HashMap;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -12,4 +14,8 @@ public interface RetrofitInterface { // 노드-mysql 연동을 위한 Retrofit �
 
     @POST("/get") // /get으로 갈 시 해당 함수를 실행
     Call<PostResult> executeGet();
+
+    @POST("/getAll")
+    Call<List<PostResult>> getAll();
+
 }

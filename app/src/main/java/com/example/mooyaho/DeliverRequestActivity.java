@@ -4,12 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DeliverRequestActivity extends AppCompatActivity {
 
+    List<PostResult> postArray;
     EditText titleEditText;
     EditText startEditText;
     EditText endEditText;
@@ -111,6 +117,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PostResult> call, Response<PostResult> response) { // 서버에서 대답 옴
 
+                Log.d("body", response.body().toString());
                 if(response.code() == 200) { // 정보 가져오기 성공(서버에서 200 보내줌)
                     PostResult postResult = response.body(); // response의 body를 PostResult 형태로 받음
                     // 이제 PostResult의 get으로 액티비티 내용을 채움
@@ -124,6 +131,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PostResult> call, Throwable t) {
+                Log.e("erroR", t.toString());
                 Toast.makeText(DeliverRequestActivity.this, "정보 가져오기 실패 2", Toast.LENGTH_LONG).show();
             }
         });
