@@ -31,6 +31,8 @@ dependencies {
      // adding 2017112014
     // 네이버 지도 SDK
     implementation 'com.naver.maps:map-sdk:3.11.0'
+    // 네이버 지도 위치추적
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.1.0'
