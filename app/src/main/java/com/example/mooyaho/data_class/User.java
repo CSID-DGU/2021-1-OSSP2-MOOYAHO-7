@@ -1,4 +1,4 @@
-package com.example.mooyaho;
+package com.example.mooyaho.data_class;
 // commit test
 public class User { // 유저 정보를 담고 있는 POJO
 

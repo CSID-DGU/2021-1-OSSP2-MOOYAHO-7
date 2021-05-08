@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.mooyaho.adapter.CustomAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initView();
+        initView();                             // 보기 편하게, view bind 함수 생성
         setButtonClickListener();
         handleGetAll();
     }
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         buttonChatting.setOnClickListener(new View.OnClickListener() { // 채팅창 이동 버튼
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(getApplicationContext(), ChattingActivity.class));
+                startActivity(new Intent(getApplicationContext(), ChattingActivity.class));
             }
         });
         buttonMyPage.setOnClickListener(new View.OnClickListener() { // 마이페이지 이동 버튼
