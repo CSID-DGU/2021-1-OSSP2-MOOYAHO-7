@@ -1,5 +1,7 @@
 package com.example.mooyaho;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,9 @@ import android.widget.EditText;
 
 import com.example.mooyaho.adapter.CustomAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.naver.maps.map.MapFragment;
+import com.naver.maps.map.NaverMap;
+import com.naver.maps.map.OnMapReadyCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     Button buttonHome;
     Button buttonRequest;
     Button buttonChatting;
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         initView();                             // 보기 편하게, view bind 함수 생성
         setButtonClickListener();
         handleGetAll();
+        showMap();
     }
 
     private void handleGetAll(){
@@ -131,5 +137,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
             }
         });
+    }
+
+    private void showMap(){
+        FragmentManager fm = getSupportFragmentManager();
+        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
+        if (mapFragment == null) {
+            mapFragment = MapFragment.newInstance();
+            fm.beginTransaction().add(R.id.map, mapFragment).commit();
+        }
+
+        mapFragment.getMapAsync(this);
+
+    }
+    @Override
+    public void onMapReady(@NonNull NaverMap naverMap) {
+
     }
 }

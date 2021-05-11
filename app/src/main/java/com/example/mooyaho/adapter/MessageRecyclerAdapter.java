@@ -32,7 +32,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if(messages.size() != 0) {
             Message message = messages.get(position);
-            if(message.getEmail().equals(User.email)) {     // 메세지의 이메일이 현재 유저의 이메일과 같으면 내 메세지로 취급한다.
+            if(message.getEmail().equals(User.mail)) {     // 메세지의 이메일이 현재 유저의 이메일과 같으면 내 메세지로 취급한다.
                 return VIEW_TYPE_MY;
             } else {
                 return VIEW_TYPE_OTHER;
