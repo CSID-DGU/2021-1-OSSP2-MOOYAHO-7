@@ -22,17 +22,20 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Message> messages = new ArrayList<>();        // 채팅방에 있는 메세지들을 담을 배열
     private Context context;                                        // Adapter를 inner class로 작성 하지 않을 때는, context 객체를 Activity에서 받아와야함
+    private String email;
 
-    public MessageRecyclerAdapter(ArrayList<Message> messages, Context context) {
+    public MessageRecyclerAdapter(ArrayList<Message> messages, String email, Context context) {
         this.messages = messages;
         this.context = context;                                     // 생성자를 통해 Context 객체 할당
+        this.email = email;
     }
 
     @Override
     public int getItemViewType(int position) {
         if(messages.size() != 0) {
             Message message = messages.get(position);
-            if(message.getEmail().equals(User.mail)) {     // 메세지의 이메일이 현재 유저의 이메일과 같으면 내 메세지로 취급한다.
+            String email = message.getEmail();
+            if(email != null && email.equals(this.email)) {     // 메세지의 이메일이 현재 유저의 이메일과 같으면 내 메세지로 취급한다.
                 return VIEW_TYPE_MY;
             } else {
                 return VIEW_TYPE_OTHER;
