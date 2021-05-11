@@ -16,7 +16,8 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SettingActivity" />
-        <activity android:name=".DeliverRequestActivity" />
+        <activity android:name=".ChattingActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".DeliverRequestActivity"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity

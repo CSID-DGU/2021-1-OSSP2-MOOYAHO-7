@@ -1,6 +1,7 @@
 package com.example.mooyaho;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -40,8 +41,8 @@ public class ChattingActivity extends AppCompatActivity {
     // Data
     ArrayList<Message> messages = new ArrayList<>();
     String userID;
-    String nickname = User.nickname;
-    String email = User.email;
+    String nickname;
+    String email;
 
     // Firebase
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 유저 정보
@@ -55,8 +56,9 @@ public class ChattingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
 
+        getNickname();              // user nickname 가져오기
+        getEmail();                 // user email 가져오기
         initView();
-        getUserData();              // userdata 가져오기
         setEnterPressedListener();
         setButtonClickListener();
         getMessages();              // messages 가져오기
@@ -66,7 +68,7 @@ public class ChattingActivity extends AppCompatActivity {
     private void initView() {
         // 어댑터와 리사이클러뷰 바인딩
         recyclerView = (RecyclerView)findViewById(R.id.messageRecyclerView);
-        adapter = new MessageRecyclerAdapter(messages, getApplicationContext());
+        adapter = new MessageRecyclerAdapter(messages, email, getApplicationContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -167,8 +169,12 @@ public class ChattingActivity extends AppCompatActivity {
         });
     }
 
-    private void getUserData() {
-        // Users Database에서 유저 정보[이메일, 닉네임 ...] 가져오는 과정
+    private void getEmail(){
+        email = user.getEmail();
+    }
+
+    private void getNickname() {
+        // Users Database에서 닉네임 가져오는 과정
         userID = user.getUid();
         userDB.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -178,7 +184,6 @@ public class ChattingActivity extends AppCompatActivity {
                 if(userProfile!=null){ // 유저 정보가 있으면
                     // String 가져와서
                     nickname = userProfile.nickname;
-                    email = userProfile.email;
                 }
             }
 
