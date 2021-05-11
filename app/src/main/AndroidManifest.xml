@@ -28,6 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="6u9a727lyo" />
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_TYPE"
+            android:value="gov" />
     </application>
 
 </manifest>
