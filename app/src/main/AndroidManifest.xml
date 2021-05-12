@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
+    package="com.example.mooyaho">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+=======
     package="com.mooyaho">
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
 
+>>>>>>> main
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
+        android:theme="@style/Theme.Mooyaho"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".MyPageActivity"></activity>
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".ChattingActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".DeliverRequestActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ShowMapActivity"/>
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+=======
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".MainActivity">
+>>>>>>> main
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +45,10 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="6u9a727lyo" />
+<<<<<<< HEAD
+=======
         <activity android:name=".MapFragmentActivity"/>
+>>>>>>> main
     </application>
 
 </manifest>

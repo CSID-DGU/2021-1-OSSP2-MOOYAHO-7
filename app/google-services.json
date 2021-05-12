@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "952856607681",
+    "project_id": "mooyaho-a645f",
+    "storage_bucket": "mooyaho-a645f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952856607681:android:ebc2cb262e3fb81f13cd40",
+        "android_client_info": {
+          "package_name": "com.example.mooyaho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952856607681-vr468iv2grkqpmpkem6e3tun8k23kmrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSNXb1xMbspg86VeNT3-Ot59WIdfb1RFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952856607681-vr468iv2grkqpmpkem6e3tun8k23kmrs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
