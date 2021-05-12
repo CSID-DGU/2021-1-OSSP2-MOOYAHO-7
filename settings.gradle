@@ -1,6 +1,0 @@
-include ':app'
-<<<<<<< HEAD
-rootProject.name = "Mooyaho"
-=======
-rootProject.name = "My Application"
->>>>>>> main
