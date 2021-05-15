@@ -23,6 +23,7 @@
         <activity android:name=".ShowMapActivity"/>
         <activity android:name=".friendsList"/>
         <activity android:name=".chat.MessageActivity"/>
+        <activity android:name=".ChatList"/>
         <activity android:name="com.example.mooyaho.views.FoldingCellView"
             tools:ignore="Instantiatable" />
         <activity android:name="com.example.mooyaho.animations.AnimationEndListener"
