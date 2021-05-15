@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout android:orientation="vertical" android:background="#FFFFFF" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- upside toolbar start -->
+
+
+
+    <LinearLayout android:orientation="horizontal" android:layout_height="91dp" android:layout_width="match_parent">
+
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/textView16"/>
+
+
+        <LinearLayout android:orientation="vertical" android:layout_height="match_parent" android:layout_width="55dp" android:layout_weight="1">
+
+            <ImageView android:layout_height="69dp" android:layout_width="82dp" android:layout_weight="1" android:id="@+id/imageView3" app:srcCompat="@drawable/logo" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" android:layout_gravity="fill|fill_horizontal"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_height="match_parent" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/textView3" android:textStyle="bold" android:textSize="24sp"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1">
+
+            <ImageView android:layout_height="51dp" android:layout_width="42dp" android:id="@+id/mapbutton" app:srcCompat="@drawable/baseline_map_black_48dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.175" app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.49" app:layout_constraintEnd_toEndOf="parent" app:tint="#424242"/>
+
+            <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/textView6" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/mapbutton" android:text="Map"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <TextView android:background="#70000000" android:layout_height="1dp" android:layout_width="match_parent" android:id="@+id/line2" android:text="TextView"/>
+
+    <!-- upside toolbar finish -->
+
+
+
+    <LinearLayout android:orientation="vertical" android:layout_height="440dp" android:layout_width="match_parent">
+
+        <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/title" android:layout_gravity="center" android:textSize="20sp" android:inputType="text" android:hint="요청 제목" android:ems="10" android:layout_marginTop="12dp"/>
+
+        <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/startLocation" android:layout_gravity="center" android:textSize="20sp" android:inputType="text" android:hint="전달 시작 위치" android:ems="10" android:layout_marginTop="12dp"/>
+
+        <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/endLocation" android:layout_gravity="center" android:textSize="20sp" android:inputType="text" android:hint="전달 도착 위치" android:ems="10" android:layout_marginTop="12dp"/>
+
+        <EditText android:layout_height="130dp" android:layout_width="match_parent" android:id="@+id/content" android:layout_gravity="center" android:textSize="20sp" android:inputType="none" android:hint="요청 상세 내용" android:ems="10" android:layout_marginTop="15dp" android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+
+        <LinearLayout android:orientation="horizontal" android:layout_height="match_parent" android:layout_width="match_parent" android:layout_marginTop="15dp">
+
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/submit" android:layout_gravity="center|left" android:textStyle="bold" android:textSize="20sp" android:text=" 요청 작성" app:icon="?android:attr/textSelectHandleRight" android:textIsSelectable="true" android:textColor="#ffffff" android:backgroundTint="#424242" android:layout_marginLeft="10dp"/>
+
+            <LinearLayout android:orientation="horizontal" android:layout_height="match_parent" android:layout_width="30dp"/>
+
+            <Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/get" android:layout_gravity="center|right" android:textStyle="bold" android:textSize="20sp" android:text=" GET " android:layout_marginTop="10dp" app:icon="?android:attr/textSelectHandleRight" android:textColor="#ffffff" app:backgroundTint="#424242" android:backgroundTint="#424242" app:rippleColor="#FFFFFF" android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/textView11" android:text="TextView"/>
+
+    </LinearLayout>
+
+    <!-- downside toolbar start-->
+
+
+    <TextView android:background="#70000000" android:layout_height="1dp" android:layout_width="match_parent" android:id="@+id/line" android:text="TextView"/>
+
+
+    <LinearLayout android:orientation="horizontal" android:background="#FFFFFF" android:layout_height="60dp" android:layout_width="match_parent">
+
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/textView"/>
+
+
+        <LinearLayout android:orientation="vertical" android:layout_height="match_parent" android:layout_width="wrap_content">
+
+            <ImageButton android:background="#FFFFFF" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/home" app:srcCompat="@drawable/baseline_home_black_24" android:tint="#424242"/>
+
+            <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/textView4" android:textStyle="bold" android:textSize="10dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/mapbutton" android:text="홈" android:textAlignment="center" android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/textView9"/>
+
+
+        <LinearLayout android:orientation="vertical" android:layout_height="match_parent" android:layout_width="wrap_content">
+
+            <ImageButton android:background="#FFFFFF" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/request" app:srcCompat="@drawable/baseline_delivery_dining_black_36dp" android:tint="#424242"/>
+
+            <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/textView5" android:textStyle="bold" android:textSize="10dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/mapbutton" android:text="요청" android:textAlignment="center" android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/textView8"/>
+
+
+        <LinearLayout android:orientation="vertical" android:layout_height="match_parent" android:layout_width="wrap_content">
+
+            <ImageButton android:background="#FFFFFF" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/chatting" app:srcCompat="@drawable/baseline_question_answer_black_36dp" android:tint="#424242"/>
+
+            <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/textView7" android:textStyle="bold" android:textSize="10dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/mapbutton" android:text="채팅" android:textAlignment="center" android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/textView10"/>
+
+
+        <LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="wrap_content">
+
+            <ImageButton android:background="#FFFFFF" android:layout_height="match_parent" android:layout_width="wrap_content" android:id="@+id/mypage" app:srcCompat="@drawable/baseline_account_circle_black_36dp" android:tint="#424242"/>
+
+            <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/textView12" android:textStyle="bold" android:textSize="10dp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/mapbutton" android:text="프로필" android:textAlignment="center" android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_weight="1" android:id="@+id/textView2"/>
+
+    </LinearLayout>
+
+    <!-- downside toolbar finish-->
+
+
+</LinearLayout>
