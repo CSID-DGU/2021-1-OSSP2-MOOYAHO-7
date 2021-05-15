@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Splash 화면 입니다."
-        android:textSize="30dp"
-        android:gravity="center_vertical|center_horizontal"/>
-</LinearLayout>
+        android:layout_height="794dp"
+        android:scaleType="center"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_marginBottom="169dp"
+        android:gravity="center"
+        android:text="서로가 서로에게"
+        android:textColor="#000000"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="289dp" />
+
+</RelativeLayout>

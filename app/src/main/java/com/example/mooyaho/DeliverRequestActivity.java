@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
@@ -31,7 +33,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
     EditText contentEditTxt;
     Button buttonSubmit;
     Button buttonGet;
-    Button buttonMap;
+    ImageView buttonMap;
     // HTTP 통신을 위한 라이브러리
     private Retrofit retrofit;
     // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
@@ -61,7 +63,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
         contentEditTxt = (EditText) findViewById(R.id.content);
         buttonSubmit = (Button) findViewById(R.id.submit);
         buttonGet = (Button) findViewById(R.id.get);
-        buttonMap = (Button) findViewById(R.id.mapbutton);
+        buttonMap = (ImageView) findViewById(R.id.mapbutton);
     }
 
     private void setButtonClickListener() {

@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initView() {
 
-        button = (Button) findViewById(R.id.button);
+        //button = (Button) findViewById(R.id.button);
         buttonLogin = (Button) findViewById(R.id.login);
         editTextEmail = (EditText) findViewById(R.id.email);
         editTextPassword = (EditText) findViewById(R.id.password);
