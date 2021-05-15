@@ -64,6 +64,12 @@
             android:orientation="vertical">
 
 
+            <Button
+                android:id="@+id/ChatList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
             <com.example.mooyaho.FoldingCell
                 android:id="@+id/folding_cell"
                 android:layout_width="match_parent"

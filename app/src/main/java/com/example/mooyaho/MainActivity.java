@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton buttonChatting;
     ImageButton buttonMyPage;
     ImageView buttonMap;
+    Button buttonChatList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         buttonChatting = (ImageButton) findViewById(R.id.chatting);
         buttonMyPage = (ImageButton) findViewById(R.id.mypage);
         buttonMap = (ImageView) findViewById(R.id.mapbutton1);
+        buttonChatList = (Button) findViewById(R.id.ChatList);
     }
 
     private void setButtonClickListener() {
@@ -77,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ShowMapActivity.class));
+            }
+        });
+        buttonChatList.setOnClickListener(new View.OnClickListener() { // chatlist 이동 버튼
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ChatList.class));
             }
         });
     }
