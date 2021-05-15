@@ -47,13 +47,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setButtonClickListener() {
-        button.setOnClickListener(new View.OnClickListener() {
+        /*button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
 
         register.setOnClickListener(new View.OnClickListener() { // 회원 가입 창으로 이동
             @Override
