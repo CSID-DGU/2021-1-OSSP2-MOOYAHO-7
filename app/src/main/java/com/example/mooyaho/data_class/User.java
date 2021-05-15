@@ -5,6 +5,7 @@ public class User { // 유저 정보를 담고 있는 POJO
 
     public String email;
     public String nickname;
+    public String uid;
 
     public User() {
 
@@ -22,4 +23,6 @@ public class User { // 유저 정보를 담고 있는 POJO
     public String getNickname() {
         return nickname;
     }
+
+    public String getUid() { return uid; }
 }
