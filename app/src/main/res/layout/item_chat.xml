@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="70dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
@@ -12,17 +12,30 @@
 
         <TextView
             android:id="@+id/chatitem_textview_title"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="방이름"/>
 
         <TextView
             android:id="@+id/chatitem_textview_lastMessage"
             android:text="마지막 메세지"
+            android:layout_below="@+id/chatitem_textview_title"
+            android:textColor="@android:color/darker_gray"
             android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/chatitem_textview_timestamp"
+            android:text="2021.05.16 11:00"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/darker_gray"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 </LinearLayout>

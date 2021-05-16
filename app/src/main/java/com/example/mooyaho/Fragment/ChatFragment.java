@@ -1,6 +1,7 @@
 package com.example.mooyaho.Fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mooyaho.R;
-import com.example.mooyaho.adapter.CustomAdapter;
+import com.example.mooyaho.chat.MessageActivity;
 import com.example.mooyaho.data_class.Chat;
 import com.example.mooyaho.data_class.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,13 +23,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
 public class ChatFragment extends Fragment {
+
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,12 +52,12 @@ public class ChatFragment extends Fragment {
 
         private List<Chat> chatlist= new ArrayList<>();
         String uid;
+        private ArrayList<String> destinationUsers = new ArrayList<>();
 
         public ChatRecyclerViewAdapter() {
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            //users ? Users?
-            FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/"+uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/"+uid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for(DataSnapshot item : snapshot.getChildren()){
@@ -82,8 +89,9 @@ public class ChatFragment extends Fragment {
             for(String user: chatlist.get(position).users.keySet()){
                 if(!user.equals(uid)){
                     destinationUid = user;
+                    destinationUsers.add(destinationUid);
                 }
-            }//u?? U???
+            }
             FirebaseDatabase.getInstance().getReference().child("Users").child(destinationUid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -103,6 +111,22 @@ public class ChatFragment extends Fragment {
             String lastMessageKey = (String) commentMap.keySet().toArray()[0];
             customViewHolder.textView_last_message.setText(chatlist.get(position).comments.get(lastMessageKey).message); //바인딩
 
+            customViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), MessageActivity.class); //방 열어주기 위함
+                    intent.putExtra("destinationUid", destinationUsers.get(position));
+
+                    startActivity(intent);
+                }
+            });
+
+            //timestamp
+            long unixTime = (long) chatlist.get(position).comments.get(lastMessageKey).timestamp;
+            Date date = new Date(unixTime);
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            String time = simpleDateFormat.format(date);
+            customViewHolder.textView_timestamp.setText(time);
         }
 
         @Override
@@ -117,12 +141,13 @@ public class ChatFragment extends Fragment {
 
             public TextView textView_title;
             public TextView textView_last_message;
+            public TextView textView_timestamp;
             public CustomViewHolder(View view) {
                 super(view);
 
                 textView_title =  (TextView)view.findViewById(R.id.chatitem_textview_title);
                 textView_last_message = (TextView)view.findViewById(R.id.chatitem_textview_lastMessage);
-
+                textView_timestamp =  (TextView)view.findViewById(R.id.chatitem_textview_timestamp);
             }
         }
     }
