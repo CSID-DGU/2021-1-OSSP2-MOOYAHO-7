@@ -61,4 +61,10 @@ dependencies {
     // 네이버 지도 위치추적
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
+    // Firebase Cloud Functions
+    implementation 'com.google.firebase:firebase-functions'
+
+    // Firebase Messaging
+    implementation 'com.google.firebase:firebase-messaging'
+
 }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.mooyaho.R;
 import com.example.mooyaho.data_class.Chat;
 import com.example.mooyaho.data_class.User;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -28,11 +29,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 public class MessageActivity extends AppCompatActivity {
@@ -48,6 +53,8 @@ public class MessageActivity extends AppCompatActivity {
 
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
+    private FirebaseFunctions mFunctions = FirebaseFunctions.getInstance();         // firebase cloud functions
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,9 +62,9 @@ public class MessageActivity extends AppCompatActivity {
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); //채팅을 요구하는 uid, 단말기에 로그인된 uid
         destinationUid = getIntent().getStringExtra("destinationUid"); //채팅을 당하는 uid
-        button = (Button)findViewById(R.id.messageActivity_button);
-        editText = (EditText)findViewById(R.id.messageActivity_editText);
-        recyclerView = (RecyclerView)findViewById(R.id.messageActivity_recyclerview);
+        button = (Button) findViewById(R.id.messageActivity_button);
+        editText = (EditText) findViewById(R.id.messageActivity_editText);
+        recyclerView = (RecyclerView) findViewById(R.id.messageActivity_recyclerview);
 
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -66,9 +73,9 @@ public class MessageActivity extends AppCompatActivity {
 
                 Chat chat = new Chat();
                 chat.users.put(uid, true);
-                chat.users.put(destinationUid,true);
+                chat.users.put(destinationUid, true);
 
-                if(chatRoomUid == null) { //null이면 채팅방 생성
+                if (chatRoomUid == null) { //null이면 채팅방 생성
                     button.setEnabled(false);
                     FirebaseDatabase.getInstance().getReference().child("chatrooms").push().setValue(chat).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -77,15 +84,23 @@ public class MessageActivity extends AppCompatActivity {
                         }
                     });
 
-                }else{ //null이 아니면 채팅룸에 채팅방 이름 밑에 메세지 넣기
+                } else { //null이 아니면 채팅룸에 채팅방 이름 밑에 메세지 넣기
                     Chat.Comment comment = new Chat.Comment();
                     comment.uid = uid;
                     comment.message = editText.getText().toString();
                     comment.timestamp = ServerValue.TIMESTAMP;
-                    FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomUid).child("comments").push().setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    FirebaseDatabase.getInstance()
+                            .getReference()
+                            .child("chatrooms")
+                            .child(chatRoomUid)
+                            .child("comments")
+                            .push().setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                        // DB에 메세지 전송 완료 후
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             editText.setText("");
+                            callCloudFunction(comment);         // 클라우드 함수 호출하여 서버에 notification 전송 요청
                         }
                     });
                 }
@@ -97,14 +112,14 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     //채팅룸 중복 확인 함수
-    void checkChatRoom(){
+    void checkChatRoom() {
 
-        FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/"+uid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/" + uid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot item: snapshot.getChildren()){
+                for (DataSnapshot item : snapshot.getChildren()) {
                     Chat chat = item.getValue(Chat.class);
-                    if(chat.users.containsKey(destinationUid)){
+                    if (chat.users.containsKey(destinationUid)) {
                         chatRoomUid = item.getKey(); //방 아이디
                         button.setEnabled(true);
                         //recyclerView에 바인딩
@@ -122,10 +137,30 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    // 파이어베이스 클라우드 함수 Http Request
+    private Task<String> callCloudFunction(Chat.Comment comment) {
+        Map<String, Object> data = new HashMap<>();             // 메시지 내용을 담을 Map
+        data.put("comment", comment.message);
+        data.put("receiverUid", destinationUid);
+
+        return mFunctions.getHttpsCallable("notiRequest")
+                .call(data)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        Map<String, Object> resultData = (Map<String, Object>) task.getResult().getData();
+                        String result = (String) resultData.get("result");
+                        Log.d("Cloud Functions : ", result);                    // response 결과 로그 출력
+                        return result;
+                    }
+                });
+    }
+
+    class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         List<Chat.Comment> comments;
         User user;
+
         public RecyclerViewAdapter() {
             comments = new ArrayList<>();
 
@@ -144,12 +179,12 @@ public class MessageActivity extends AppCompatActivity {
 
         }
 
-        void getMessageList(){
+        void getMessageList() {
             FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomUid).child("comments").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     comments.clear();
-                    for(DataSnapshot item: snapshot.getChildren()){
+                    for (DataSnapshot item : snapshot.getChildren()) {
                         comments.add(item.getValue(Chat.Comment.class));
                     }
                     //메세지 갱신
@@ -170,22 +205,22 @@ public class MessageActivity extends AppCompatActivity {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             //xml에 추가한 view 넣어줌
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
 
             return new MessageViewHolder(view); //뷰 재사용할때 쓰는 클래스
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            MessageViewHolder messageViewHolder = ((MessageViewHolder)holder);
+            MessageViewHolder messageViewHolder = ((MessageViewHolder) holder);
 
-            if(comments.get(position).uid.equals(uid)){ //내가보낸 메세지
+            if (comments.get(position).uid.equals(uid)) { //내가보낸 메세지
                 messageViewHolder.textView_massage.setText(comments.get(position).message);
                 //messageViewHolder.textView_massage.setBackgroundResource(R.drawable); 말풍선 넣기
                 messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
                 messageViewHolder.textView_massage.setTextSize(25);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.RIGHT);
-            }else{ //상대방이 보낸 메세지
+            } else { //상대방이 보낸 메세지
                 messageViewHolder.textView_name.setText(user.nickname);
                 messageViewHolder.textView_massage.setText(comments.get(position).message);
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
@@ -218,8 +253,8 @@ public class MessageActivity extends AppCompatActivity {
             super(view);
             textView_massage = (TextView) view.findViewById((R.id.messageItem_textView_message));
             textView_name = (TextView) view.findViewById((R.id.messageItem_textView_name));
-            linearLayout_destination = (LinearLayout)view.findViewById((R.id.messageItem_linearLayout_destination));
-            linearLayout_main = (LinearLayout)view.findViewById((R.id.messageItem_linearLayout_main));
+            linearLayout_destination = (LinearLayout) view.findViewById((R.id.messageItem_linearLayout_destination));
+            linearLayout_main = (LinearLayout) view.findViewById((R.id.messageItem_linearLayout_main));
             textView_timestamp = (TextView) view.findViewById((R.id.messageItem_textView_timestamp));
         }
     }
