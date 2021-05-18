@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -17,6 +18,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     Button button;
@@ -47,13 +52,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setButtonClickListener() {
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        /*button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });*/
 
         register.setOnClickListener(new View.OnClickListener() { // 회원 가입 창으로 이동
             @Override
@@ -111,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(user.isEmailVerified()){ // 이메일 인증 됐을 시 메인액티비티로
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        setTokenToDB(user);
                     }
                     else{ // 아니면 안보내줌
                         Toast.makeText(LoginActivity.this, "이메일 인증 후 다시 눌러주세요",Toast.LENGTH_LONG).show();
@@ -121,5 +127,23 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // 디바이스 토큰 정보를 Firebase DB에 저장해놓는다.
+    private void setTokenToDB(FirebaseUser user) {
+        SharedPreferences sharedPref = getSharedPreferences("token", MODE_PRIVATE);
+        String token = sharedPref.getString("tokenValue", null);
+
+        Map<String, Object> tokInfo = new HashMap<>();
+        final String myUid = user.getUid();
+        tokInfo.put("uid", myUid);
+        tokInfo.put("token", token);
+
+        // 토큰 정보는 유저당 하나밖에 존재 할 수 없게 DB에 새로 작성시마다 항상 덮어 씌워진다.
+        FirebaseDatabase.getInstance()
+                .getReference()
+                .child("Tokens")
+                .child(myUid)
+                .setValue(tokInfo);
     }
 }

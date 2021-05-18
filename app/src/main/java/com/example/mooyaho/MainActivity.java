@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.mooyaho.FoldingCell;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton buttonRequest;
     ImageButton buttonChatting;
     ImageButton buttonMyPage;
+    ImageView buttonMap;
+    Button buttonChatList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         buttonRequest = (ImageButton) findViewById(R.id.request);
         buttonChatting = (ImageButton) findViewById(R.id.chatting);
         buttonMyPage = (ImageButton) findViewById(R.id.mypage);
+        buttonMap = (ImageView) findViewById(R.id.mapbutton1);
+        buttonChatList = (Button) findViewById(R.id.ChatList);
     }
 
     private void setButtonClickListener() {
@@ -61,13 +66,25 @@ public class MainActivity extends AppCompatActivity {
         buttonChatting.setOnClickListener(new View.OnClickListener() { // 채팅창 이동 버튼
             @Override
             public void onClick(View view) {
-//              startActivity(new Intent(getApplicationContext(), ChattingActivity.class));
+                startActivity(new Intent(getApplicationContext(), friendsList.class));
             }
         });
         buttonMyPage.setOnClickListener(new View.OnClickListener() { // 마이페이지 이동 버튼
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
+            }
+        });
+        buttonMap.setOnClickListener(new View.OnClickListener() { // 지도 이동 버튼
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ShowMapActivity.class));
+            }
+        });
+        buttonChatList.setOnClickListener(new View.OnClickListener() { // chatlist 이동 버튼
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ChatList.class));
             }
         });
     }

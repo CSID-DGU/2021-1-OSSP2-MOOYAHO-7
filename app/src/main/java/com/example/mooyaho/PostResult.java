@@ -6,6 +6,12 @@ public class PostResult { // Post 정보를 서버에서 가져와야 할 때 �
     private String postContent;
     private String postLocation;
 
+    public PostResult(String postTitle, String postContent, String postLocation) {
+        this.postTitle = postTitle;
+        this.postContent = postContent;
+        this.postLocation = postLocation;
+    }
+
     public String getPostTitle() {
         return postTitle;
     }
@@ -29,8 +35,6 @@ public class PostResult { // Post 정보를 서버에서 가져와야 할 때 �
     public void setLocation(String location) {
         this.postLocation = location;
     }
-
-
 
 
 }

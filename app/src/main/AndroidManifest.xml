@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.mooyaho">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,12 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mooyaho"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyPageActivity"></activity>
+        <activity android:name=".MyPageActivity"/>
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".DeliverRequestActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".ShowMapActivity"/>
+        <activity android:name=".friendsList"/>
+        <activity android:name=".chat.MessageActivity"/>
+        <activity android:name=".ChatList"/>
         <activity android:name="com.example.mooyaho.views.FoldingCellView"
             tools:ignore="Instantiatable" />
         <activity android:name="com.example.mooyaho.animations.AnimationEndListener"
@@ -37,6 +41,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".services.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="6u9a727lyo" />
     </application>
 
 </manifest>
