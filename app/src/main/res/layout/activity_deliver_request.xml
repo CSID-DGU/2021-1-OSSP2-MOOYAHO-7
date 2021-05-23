@@ -44,6 +44,12 @@
 
         <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/endLocation" android:layout_gravity="center" android:textSize="20sp" android:inputType="text" android:hint="전달 도착 위치" android:ems="10" android:layout_marginTop="12dp"/>
 
+        <Button
+            android:id="@+id/find_loc2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="위치 찾기" />
+
         <EditText android:layout_height="130dp" android:layout_width="match_parent" android:id="@+id/content" android:layout_gravity="center" android:textSize="20sp" android:inputType="none" android:hint="요청 상세 내용" android:ems="10" android:layout_marginTop="15dp" android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
 
