@@ -33,6 +33,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
     EditText contentEditTxt;
     Button buttonSubmit;
     Button buttonGet;
+    Button buttonfindLoc;
     ImageView buttonMap;
     // HTTP 통신을 위한 라이브러리
     private Retrofit retrofit;
@@ -64,6 +65,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
         buttonSubmit = (Button) findViewById(R.id.submit);
         buttonGet = (Button) findViewById(R.id.get);
         buttonMap = (ImageView) findViewById(R.id.mapbutton1);
+        buttonfindLoc = (Button) findViewById(R.id.find_loc2);
     }
 
     private void setButtonClickListener() {
@@ -87,6 +89,14 @@ public class DeliverRequestActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), ShowMapActivity.class));
             }
         });
+
+        buttonfindLoc.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                startActivity(new Intent(getApplicationContext(), FindMapActivity.class));
+            }
+        });
+
     }
 
     private void handlePost() { // 요청 post시 실행

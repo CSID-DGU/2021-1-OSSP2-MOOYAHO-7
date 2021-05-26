@@ -42,26 +42,28 @@
 
             <ImageView
                 android:id="@+id/mapbutton1"
-                android:layout_width="42dp"
-                android:layout_height="51dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+
+
                 app:layout_constraintVertical_bias="0.4"
                 app:srcCompat="@drawable/baseline_map_black_48dp"
-                app:tint="#424242" />
+                app:tint="#424242"
+                android:layout_marginRight="16dp" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  Map"
+                android:text="Map"
                 android:textColor="@color/black"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.863"
+                app:layout_constraintHorizontal_bias="0.834"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mapbutton1" />
 
@@ -99,11 +101,27 @@
                 android:textSize="14sp"
                 app:backgroundTint="@color/logo" />
 
+            <TextView
+                android:id="@+id/line5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#70000000"
+                android:text="TextView" />
+
             <com.example.mooyaho.FoldingCell
                 android:id="@+id/folding_cell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp">
 
                 <FrameLayout
                     android:id="@+id/cell_content_view"
@@ -111,13 +129,36 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone">
 
+                    <Button
+                        android:id="@+id/toggle_btn6"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/outline_arrow_circle_up_black_36dp"
+                        android:textSize="10sp"
+                        app:backgroundTint="#D0151515" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
-                        android:background="@drawable/text_round"
                         android:gravity="center"
                         android:text="출발 위치, 도착 위치, 물건의 무게, 가격, 수고비등 상세 정보"
                         android:textColor="@color/black" />
+
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/toggle_btn5"-->
+                    <!--                        android:layout_width="364dp"-->
+                    <!--                        android:layout_height="89dp"-->
+                    <!--                        android:layout_gravity="end"-->
+                    <!--                        android:layout_margin="5dp"-->
+                    <!--                        android:background="@drawable/text_round"-->
+                    <!--                        android:textSize="9sp"-->
+                    <!--                        app:backgroundTint="#00808080" />-->
 
                 </FrameLayout>
 
@@ -129,42 +170,59 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:background="@drawable/text_round"
                         android:gravity="center"
-                        android:text="요청 물건, 물건 이름, 물건 사진 정보"
+                        android:text="요 물건, 물건 이름, 물건 사진 정보"
                         android:textColor="@color/black" />
-
-                </FrameLayout>
-
-
-                <FrameLayout
-                    android:id="@+id/frame_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="-1dp">
 
                     <Button
                         android:id="@+id/toggle_btn"
-                        android:layout_width="62dp"
-                        android:layout_height="30dp"
+                        android:layout_width="366dp"
+                        android:layout_height="99dp"
                         android:layout_gravity="end"
-                        android:layout_margin="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
                         android:background="@drawable/text_round"
-                        android:text="More"
                         android:textSize="9sp"
-                        app:backgroundTint="@color/gray" />
+                        app:backgroundTint="#00FFEBEE" />
+
+                    <FrameLayout
+                        android:id="@+id/frame_button"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="-1dp">
+
+
+                    </FrameLayout>
 
                 </FrameLayout>
 
 
             </com.example.mooyaho.FoldingCell>
 
+            <TextView
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#70000000"
+                android:text="TextView" />
+
             <com.example.mooyaho.FoldingCell
                 android:id="@+id/folding_cell2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp">
 
                 <FrameLayout
                     android:id="@+id/cell_content_view2"
@@ -222,7 +280,12 @@
                 android:id="@+id/folding_cell3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp">
 
                 <FrameLayout
                     android:id="@+id/cell_content_view3"
@@ -280,7 +343,12 @@
                 android:id="@+id/folding_cell4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp">
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp">
 
                 <FrameLayout
                     android:id="@+id/cell_content_view4"
@@ -333,6 +401,12 @@
                 </FrameLayout>
 
             </com.example.mooyaho.FoldingCell>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
         </LinearLayout>
     </ScrollView>
 

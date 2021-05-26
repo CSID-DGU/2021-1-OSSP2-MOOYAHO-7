@@ -6,5 +6,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatfragment_recyclerview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -133,6 +133,7 @@ public class ChatFragment extends Fragment {
         public int getItemCount() {
             return chatlist.size();
 
+
         }
 
 
