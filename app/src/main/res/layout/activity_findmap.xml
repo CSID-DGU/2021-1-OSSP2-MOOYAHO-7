@@ -15,7 +15,7 @@
             android:id="@+id/map"
             android:name="com.naver.maps.map.MapFragment"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="514dp"
             tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

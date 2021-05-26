@@ -4,9 +4,27 @@
 
     <ImageView android:layout_height="250dp" android:layout_width="250dp" app:srcCompat="@drawable/logo" android:layout_marginRight="100dp" android:layout_marginEnd="100dp" android:layout_marginTop="20dp" android:layout_marginLeft="80dp" android:layout_marginStart="80dp" android:id="@+id/imageView"/>
 
-    <EditText android:layout_height="wrap_content" android:layout_width="380dp" android:layout_marginTop="60dp" android:id="@+id/email" android:textSize="24sp" android:layout_gravity="center" android:inputType="textEmailAddress" android:hint="Email Address" android:ems="10"/>
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="  Email Address"
+        android:inputType="textEmailAddress"
+        android:textSize="18sp" />
 
-    <EditText android:layout_height="wrap_content" android:layout_width="380dp" android:layout_marginTop="30dp" android:id="@+id/password" android:textSize="24sp" android:layout_gravity="center" android:inputType="textPassword" android:hint="Password" android:ems="10"/>
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="  Password"
+        android:inputType="textPassword"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/login"
