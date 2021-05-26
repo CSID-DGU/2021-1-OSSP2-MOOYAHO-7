@@ -64,7 +64,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
         contentEditTxt = (EditText) findViewById(R.id.content);
         buttonSubmit = (Button) findViewById(R.id.submit);
         buttonGet = (Button) findViewById(R.id.get);
-        buttonMap = (ImageView) findViewById(R.id.mapbutton);
+        buttonMap = (ImageView) findViewById(R.id.mapbutton1);
         buttonfindLoc = (Button) findViewById(R.id.find_loc2);
     }
 

@@ -1,5 +1,6 @@
 package com.example.mooyaho;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
         // attach click listener to fold btn
         final Button toggleBtn = (Button) findViewById(R.id.toggle_btn);
         toggleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fc.toggle(false);
+            }
+        });
+        final Button toggleBtn2 = (Button) findViewById(R.id.toggle_btn6);
+        toggleBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fc.toggle(false);
