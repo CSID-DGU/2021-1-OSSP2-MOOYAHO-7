@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,6 +32,9 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +44,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MessageActivity extends AppCompatActivity {
 
     private String destinationUid;
@@ -47,13 +53,14 @@ public class MessageActivity extends AppCompatActivity {
     private EditText editText;
 
     private String uid;
+    private Uri profileUri;
     private String chatRoomUid;
-
     private RecyclerView recyclerView;
 
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
     private FirebaseFunctions mFunctions = FirebaseFunctions.getInstance();         // firebase cloud functions
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference(); // storage 정보
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +72,7 @@ public class MessageActivity extends AppCompatActivity {
         button = (Button) findViewById(R.id.messageActivity_button);
         editText = (EditText) findViewById(R.id.messageActivity_editText);
         recyclerView = (RecyclerView) findViewById(R.id.messageActivity_recyclerview);
+        getProfileUri(destinationUid);
 
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -109,6 +117,18 @@ public class MessageActivity extends AppCompatActivity {
 
         checkChatRoom();
 
+    }
+
+    // 상대뱡의 프로필 URI를 얻어오는 함수
+    private void getProfileUri(String userID) {
+        // users 폴더 안에 userID+profile.jpg 사진을 다운로드 받음
+        StorageReference profileRef = storageReference.child("users/" + userID + "profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override // 이미지 다운 성공 시 오픈소스 picasso를 사용해 profileImage에 설정
+            public void onSuccess(Uri uri) {
+                profileUri = uri;
+            }
+        });
     }
 
     //채팅룸 중복 확인 함수
@@ -200,7 +220,7 @@ public class MessageActivity extends AppCompatActivity {
                 }
             });
         }
-
+        
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -213,20 +233,22 @@ public class MessageActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             MessageViewHolder messageViewHolder = ((MessageViewHolder) holder);
-
             if (comments.get(position).uid.equals(uid)) { //내가보낸 메세지
+                messageViewHolder.imageView_profile.setVisibility(View.GONE);
                 messageViewHolder.textView_massage.setText(comments.get(position).message);
                 messageViewHolder.textView_massage.setBackgroundResource(R.drawable.right);
                 messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
                 messageViewHolder.textView_massage.setTextSize(25);
-                messageViewHolder.linearLayout_main.setGravity(Gravity.RIGHT);
+                messageViewHolder.linearLayout_messageContainer.setGravity(Gravity.RIGHT);
             } else { //상대방이 보낸 메세지
+                messageViewHolder.imageView_profile.setVisibility(View.VISIBLE);
                 messageViewHolder.textView_name.setText(user.nickname);
                 messageViewHolder.textView_massage.setText(comments.get(position).message);
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
                 messageViewHolder.textView_massage.setBackgroundResource(R.drawable.left);
                 messageViewHolder.textView_massage.setTextSize(25);
-                messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
+                messageViewHolder.linearLayout_messageContainer.setGravity(Gravity.LEFT);
+                Picasso.get().load(profileUri).placeholder(R.drawable.ic_launcher_foreground).into(messageViewHolder.imageView_profile);
             }
 
             long unixTime = (long) comments.get(position).timestamp;
@@ -234,7 +256,6 @@ public class MessageActivity extends AppCompatActivity {
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
             String time = simpleDateFormat.format(date);
             messageViewHolder.textView_timestamp.setText(time);
-
         }
 
         @Override
@@ -248,7 +269,9 @@ public class MessageActivity extends AppCompatActivity {
         public TextView textView_name;
         public LinearLayout linearLayout_destination;
         public LinearLayout linearLayout_main;
+        public LinearLayout linearLayout_messageContainer;
         public TextView textView_timestamp;
+        public CircleImageView imageView_profile;
 
         public MessageViewHolder(View view) {
             super(view);
@@ -256,7 +279,9 @@ public class MessageActivity extends AppCompatActivity {
             textView_name = (TextView) view.findViewById((R.id.messageItem_textView_name));
             linearLayout_destination = (LinearLayout) view.findViewById((R.id.messageItem_linearLayout_destination));
             linearLayout_main = (LinearLayout) view.findViewById((R.id.messageItem_linearLayout_main));
+            linearLayout_messageContainer = (LinearLayout) view.findViewById(R.id.messageContainer);
             textView_timestamp = (TextView) view.findViewById((R.id.messageItem_textView_timestamp));
+            imageView_profile = (CircleImageView) view.findViewById(R.id.chatProfileImage);
         }
     }
 }

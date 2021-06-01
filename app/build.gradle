@@ -67,4 +67,6 @@ dependencies {
     // Firebase Messaging
     implementation 'com.google.firebase:firebase-messaging'
 
+    // Circle ImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
