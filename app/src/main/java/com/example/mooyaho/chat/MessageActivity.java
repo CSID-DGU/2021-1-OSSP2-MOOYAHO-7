@@ -216,7 +216,7 @@ public class MessageActivity extends AppCompatActivity {
 
             if (comments.get(position).uid.equals(uid)) { //내가보낸 메세지
                 messageViewHolder.textView_massage.setText(comments.get(position).message);
-                //messageViewHolder.textView_massage.setBackgroundResource(R.drawable); 말풍선 넣기
+                messageViewHolder.textView_massage.setBackgroundResource(R.drawable.right);
                 messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
                 messageViewHolder.textView_massage.setTextSize(25);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.RIGHT);
@@ -224,6 +224,7 @@ public class MessageActivity extends AppCompatActivity {
                 messageViewHolder.textView_name.setText(user.nickname);
                 messageViewHolder.textView_massage.setText(comments.get(position).message);
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
+                messageViewHolder.textView_massage.setBackgroundResource(R.drawable.left);
                 messageViewHolder.textView_massage.setTextSize(25);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
             }

@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/messageItem_linearLayout_main">
+    android:id="@+id/messageItem_linearLayout_main"
+    android:layout_marginLeft="5dp">
 
     <LinearLayout
         android:id="@+id/messageItem_linearLayout_destination"
