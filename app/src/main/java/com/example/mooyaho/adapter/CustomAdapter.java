@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.mooyaho.PostResult;
+import com.example.mooyaho.data_class.PostResult;
 import com.example.mooyaho.R;
 
 import java.util.ArrayList;

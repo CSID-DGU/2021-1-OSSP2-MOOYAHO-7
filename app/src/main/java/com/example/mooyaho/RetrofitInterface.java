@@ -1,5 +1,7 @@
 package com.example.mooyaho;
 
+import com.example.mooyaho.data_class.PostResult;
+
 import java.util.HashMap;
 import java.util.List;
 

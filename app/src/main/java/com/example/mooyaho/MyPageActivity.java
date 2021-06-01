@@ -51,24 +51,18 @@ public class MyPageActivity extends AppCompatActivity {
         profileImage = (ImageView)findViewById(R.id.profileImage);
         buttonLogout = (Button)findViewById(R.id.logout);
         buttonUpload = (Button)findViewById(R.id.upload);
-        final TextView emailTextView = (TextView)findViewById(R.id.emailAddress);
-        final TextView nicknameTextView = (TextView)findViewById(R.id.nickname);
+
 
         // Firebase 관련
         user = FirebaseAuth.getInstance().getCurrentUser(); // 유저 정보
         databaseReference = FirebaseDatabase.getInstance().getReference("Users"); // Users 안의 DB 정보
+
         storageReference = FirebaseStorage.getInstance().getReference(); // storage 정보
         userID = user.getUid(); // 현재 유저의 고유한 id
 
 
-        // users 폴더 안에 userID+profile.jpg 사진을 다운로드 받음
-        StorageReference profileRef = storageReference.child("users/"+userID+"profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override // 이미지 다운 성공 시 오픈소스 picasso를 사용해 profileImage에 설정
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(profileImage);
-            }
-        });
+        final TextView emailTextView = (TextView)findViewById(R.id.emailAddress);
+        final TextView nicknameTextView = (TextView)findViewById(R.id.nickname);
 
         // Users Database에서 유저 정보[이메일, 닉네임 ...] 가져오는 과정
         databaseReference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -89,9 +83,28 @@ public class MyPageActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { // 실패 시
-                Toast.makeText(MyPageActivity.this, "Something gone Wrong!!",Toast.LENGTH_LONG).show();
+
+                Toast.makeText(MyPageActivity.this, "Something gone wrong !!",Toast.LENGTH_LONG).show();
+
             }
         });
+
+
+
+        downloadImage();
+    }
+
+    private void downloadImage(){
+
+        // users 폴더 안에 userID+profile.jpg 사진을 다운로드 받음
+        StorageReference profileRef = storageReference.child("users/"+userID+"profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override // 이미지 다운 성공 시 오픈소스 picasso를 사용해 profileImage에 설정
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(profileImage);
+            }
+        });
+
 
     }
 
