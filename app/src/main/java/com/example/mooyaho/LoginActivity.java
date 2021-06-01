@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mooyaho.data_class.PostResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,7 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
     Button button;
@@ -31,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView register;
     TextView reset;
     FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         register = (TextView) findViewById(R.id.register);
         reset = (TextView) findViewById(R.id.reset);
         mAuth = FirebaseAuth.getInstance();
+
     }
 
     private void setButtonClickListener() {
