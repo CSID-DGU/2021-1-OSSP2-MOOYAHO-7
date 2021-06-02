@@ -131,12 +131,11 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                         startLongitude = d2;
                         System.out.println(d1 +", "+ d2);
                         CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(
-                                point, 15).animate(CameraAnimation.Fly, 3000);
+                                point, 15).animate(CameraAnimation.Fly, 1000);
                         naverMap.moveCamera(cameraUpdate);
                         marker1.setPosition(point);
                         marker1.setWidth(Marker.SIZE_AUTO);
                         marker1.setHeight(Marker.SIZE_AUTO);
-                        marker1.setAnchor(new PointF(1, 1));
                         marker1.setIconPerspectiveEnabled(true);
                         marker1.setCaptionText("시작 위치");
                         marker1.setCaptionAligns(Align.Top);
@@ -177,12 +176,11 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                         System.out.println(d1 +", "+ d2);
 
                         CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(
-                                point, 15).animate(CameraAnimation.Fly, 3000);
+                                point, 15).animate(CameraAnimation.Fly, 1000);
                         naverMap.moveCamera(cameraUpdate);
                         marker2.setPosition(point);
                         marker2.setWidth(Marker.SIZE_AUTO);
                         marker2.setHeight(Marker.SIZE_AUTO);
-                        marker2.setAnchor(new PointF(1, 1));
                         marker2.setIconPerspectiveEnabled(true);
                         marker2.setCaptionText("도착 위치");
                         marker2.setCaptionAligns(Align.Top);
