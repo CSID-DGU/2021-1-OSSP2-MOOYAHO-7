@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         // get our folding cell
         /*final FoldingCell fc = (FoldingCell) findViewById(R.id.folding_cell);
         // attach click listener to fold btn

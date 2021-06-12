@@ -36,10 +36,12 @@
 
             <TextView
                 android:id="@+id/messageItem_textView_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="메세지"
-                android:textSize="10sp" />
+                android:linksClickable="true"
+                android:autoLink="web"
+                android:textColorLink="#2C54A3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/messageItem_textView_timestamp"
                 android:text="2021.05.15 07:00"
