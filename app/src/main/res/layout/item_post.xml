@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,85 +26,166 @@
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_dark"
             android:visibility="gone">
+
+            <!-- android:text="출발 위치, 도착 위치, 물건의 무게, 가격, 수고비등 상세 정보" -->
 
             <TextView
                 android:id="@+id/tv_content_post"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:gravity="center"
-                android:background="#faf3f3"
                 android:textColor="@color/black" />
-            <!--   android:text="출발 위치, 도착 위치, 물건의 무게, 가격, 수고비등 상세 정보" -->
+
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/post_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/logo" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tv_title_post2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="제목"/>
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="10dp"
+                android:text="제목" />
 
-                <TextView
-                    android:id="@+id/tv_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:text="작성자 : "/>
+            <TextView
+                android:id="@+id/post_start2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="30dp"
+                android:text="시작 위치" />
 
-                <Button
-                    android:id="@+id/profile_button"
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:layout_height="wrap_content"
-                    android:hint="이동"/>
+            <TextView
+                android:id="@+id/post_end2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="50dp"
+                android:text="도착 위치" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="70dp"
+                android:text="가격" />
+
+            <TextView
+                android:id="@+id/tv_user2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="70dp"
+                android:text="작성자 : " />
 
             <TextView
                 android:id="@+id/tv_content_post2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:text="본문"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="120dp"
+                android:text="상세 내용" />
 
-            <ImageView
-                android:id="@+id/post_image"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="150dp"
-                app:srcCompat="@drawable/logo"/>
-
-            <TextView
+            <Button
+                android:id="@+id/post_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="250dp"
-                android:text="시작 위치"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
                 android:layout_marginTop="300dp"
-                android:text="끝 위치"/>
 
+                android:text="요청 수락" />
+
+            <Button
+                android:id="@+id/show_map_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="300dp"
+                android:text="위치 상세보기" />
 
 
         </FrameLayout>
-        ​
+
         <FrameLayout
             android:id="@+id/cell_title_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/post_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@drawable/logo" />
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/tv_title_post"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="#faf3f3"
-                android:gravity="center"
-                android:text="주요 물건, 물건 이름, 물건 사진 정보"
-                android:textColor="@color/black" />
-        </FrameLayout>​
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="10dp"
+                android:text="제목" />
 
+            <TextView
+                android:id="@+id/post_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="30dp"
+                android:text="시작 위치" />
+
+            <TextView
+                android:id="@+id/post_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="50dp"
+                android:text="도착 위치" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="70dp"
+                android:text="가격" />
+
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="70dp"
+                android:text="작성자 : " />
+        </FrameLayout>
 
     </com.example.mooyaho.FoldingCell>
 
+    <TextView
+        android:id="@+id/line6"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="end"
+        android:background="#70000000"
+        android:text="TextView" />
 
 </LinearLayout>

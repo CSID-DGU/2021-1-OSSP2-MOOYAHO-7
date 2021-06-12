@@ -65,7 +65,7 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     private String errorMessage = "can't find that";
 
-    private Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+    private Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                     Toast.makeText(getApplicationContext(),
                             "도착 주소을 채워주세요",
                             Toast.LENGTH_LONG).show();
-                   return;
+                    return;
                 }
 
                 String startLocation = ((EditText) findViewById(R.id.start_loc)).getText().toString();
@@ -158,8 +158,8 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                 }
                 else {
                     Toast.makeText(getApplicationContext(),
-                        "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
-                        Toast.LENGTH_LONG).show();
+                            "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
+                            Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -192,7 +192,6 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                     Toast.makeText(getApplicationContext(),
                             "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
                             Toast.LENGTH_LONG).show();
-
                 }
             }
         });
@@ -309,7 +308,6 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
         }
         mapFragment.getMapAsync(this);
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-        tv = (TextView)findViewById(R.id.resultArea);
         startText = (EditText)findViewById(R.id.start_loc);
         endText = (EditText)findViewById(R.id.end_loc);
 
@@ -322,5 +320,6 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
         myLocationbutton2 = (Button)findViewById((R.id.my_location2));
 
         submitButton = (Button)findViewById(R.id.getLoc);
+        geocoder = new Geocoder(this, Locale.KOREA);
     }
 }

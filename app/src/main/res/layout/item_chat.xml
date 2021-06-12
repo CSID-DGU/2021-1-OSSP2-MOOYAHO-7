@@ -6,20 +6,22 @@
     android:layout_height="70dp"
     android:orientation="horizontal">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/chatProfileImage2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:src="@mipmap/ic_launcher"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/chatProfileImage2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/chatitem_textview_title"
@@ -28,8 +30,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
             android:layout_marginTop="7dp"
             android:text="방이름"
             android:textColor="@android:color/black"
@@ -43,9 +45,9 @@
             android:layout_below="@+id/chatitem_textview_title"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="78dp"
+            android:layout_marginLeft="78dp"
+            android:layout_marginTop="2dp"
             android:text="마지막 메세지"
             android:textAllCaps="false"
             android:textColor="@color/main"
@@ -60,9 +62,11 @@
             android:layout_alignStart="@+id/chatitem_textview_lastMessage"
             android:layout_alignLeft="@+id/chatitem_textview_lastMessage"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="225dp"
-            android:layout_marginLeft="225dp"
-            android:layout_marginTop="34dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="205dp"
+            android:layout_marginLeft="205dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="10dp"
             android:text="2021.05.16 11:00"
             android:textColor="@android:color/darker_gray" />
 
@@ -80,4 +84,5 @@
             android:text="TextView" />
 
     </RelativeLayout>
+
 </LinearLayout>

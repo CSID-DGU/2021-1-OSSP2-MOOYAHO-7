@@ -2,27 +2,37 @@
 
 <LinearLayout android:orientation="vertical" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView android:layout_height="250dp" android:layout_width="250dp" app:srcCompat="@drawable/logo" android:layout_marginRight="100dp" android:layout_marginEnd="100dp" android:layout_marginTop="20dp" android:layout_marginLeft="80dp" android:layout_marginStart="80dp" android:id="@+id/imageView"/>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        app:srcCompat="@drawable/logo" />
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="380dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
         android:ems="10"
-        android:hint="  Email Address"
+        android:hint="Email Address"
         android:inputType="textEmailAddress"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="380dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="  Password"
+        android:hint="Password"
         android:inputType="textPassword"
         android:textSize="18sp" />
 
@@ -33,9 +43,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:backgroundTint="#424242"
-        android:text="  Login  "
+        android:text="Login"
         android:textColor="#ffffff"
-        android:textSize="26sp"
+        android:textSize="20sp"
         app:backgroundTint="#424242" />
 
 

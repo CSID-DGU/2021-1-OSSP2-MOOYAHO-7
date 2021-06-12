@@ -11,18 +11,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <fragment
+        <com.naver.maps.map.MapView
             android:id="@+id/small_map"
-            android:name="com.naver.maps.map.MapFragment"
+            class="com.naver.maps.map.MapFragment"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
-            tools:ignore="MissingConstraints" />
+            android:layout_height="549dp"
+            android:layout_gravity="center">
+
+        </com.naver.maps.map.MapView>
 
         <Button
             android:id="@+id/confirm_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="확인" />
+            android:layout_gravity="center"
+            android:text="확인"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

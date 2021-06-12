@@ -88,7 +88,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
         endEditText = (EditText) findViewById(R.id.endLocation);
         contentEditTxt = (EditText) findViewById(R.id.content);
         buttonSubmit = (Button) findViewById(R.id.submit);
-        buttonGet = (Button) findViewById(R.id.get);
+
         buttonMap = (ImageView) findViewById(R.id.mapbutton);
         buttonfindLoc = (Button) findViewById(R.id.find_loc2);
 
@@ -154,13 +154,6 @@ public class DeliverRequestActivity extends AppCompatActivity {
             }
         });
 
-        buttonGet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handleGet();
-            }
-        });
-
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,6 +171,12 @@ public class DeliverRequestActivity extends AppCompatActivity {
     }
 
     private void handlePost() { // 요청 post시 실행
+        Intent loc = getIntent();
+        double start_lat = loc.getDoubleExtra("startLat", 0);
+        double start_lon = loc.getDoubleExtra("startLon", 0);
+        double end_lat = loc.getDoubleExtra("endLat", 0);
+        double end_lon = loc.getDoubleExtra("endLon", 0);
+        System.out.println(start_lat +", "+ start_lon + ", " + end_lat + ", " +end_lon  );
 
         HashMap<String, String> map = new HashMap<>(); // HashMap 형태로 request 보냄
         // HashMap에 정보 넣기
@@ -185,10 +184,10 @@ public class DeliverRequestActivity extends AppCompatActivity {
         map.put("postTitle", titleEditText.getText().toString());
         map.put("postContent", contentEditTxt.getText().toString());
         map.put("userEmail", user.getEmail().toString());
-        map.put("startLatitude", "시작 위도 정보");
-        map.put("startLongitude", "시작 경도 정보");
-        map.put("endLatitude", "끝 위도 정보");
-        map.put("endLongitude", "끝 경도 정보");
+        map.put("postStartLatitude", String.valueOf(start_lat));
+        map.put("postStartLongitude", String.valueOf(start_lon));
+        map.put("postEndLatitude", String.valueOf(end_lat));
+        map.put("postEndLongitude", String.valueOf(end_lon));
 
         Call<Void> call = retrofitInterface.executePost(map); // retrofit으로 post 실행
         call.enqueue(new Callback<Void>() {

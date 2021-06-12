@@ -74,6 +74,14 @@ public class RegisterActivity extends AppCompatActivity {
             editTextEmail.requestFocus();
             return;
         }
+
+        int comma = email.indexOf('.');
+        if(!email.substring(comma).equals(".edu")){
+            editTextEmail.setError("Please provide valid mail!");
+            editTextEmail.requestFocus();
+            return;
+        }
+
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editTextEmail.setError("Please provide valid mail!");
             editTextEmail.requestFocus();

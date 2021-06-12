@@ -4,7 +4,16 @@
 
     <ImageView android:layout_height="220dp" android:layout_width="220dp" app:srcCompat="@drawable/logo" android:layout_marginRight="100dp" android:layout_marginEnd="10dp" android:layout_marginTop="20dp" android:layout_marginLeft="100dp" android:layout_marginStart="100dp" android:id="@+id/imageView"/>
 
-    <EditText android:layout_height="wrap_content" android:layout_width="380dp" android:layout_marginTop="20dp" android:id="@+id/email" android:textSize="18sp" android:inputType="textEmailAddress" android:hint="E-mail" android:ems="10" android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="E-mail(@donggukr.edu 형식으로)"
+        android:inputType="textEmailAddress"
+        android:textSize="18sp" />
 
     <EditText android:layout_height="wrap_content" android:layout_width="380dp" android:layout_marginTop="25dp" android:id="@+id/nickname" android:textSize="18sp" android:inputType="text" android:hint="닉네임" android:ems="10" android:layout_gravity="center"/>
 
