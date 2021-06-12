@@ -72,8 +72,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         if(post == null){
             return;
         }
-        String startLocation = getStartLocation(post);
-        String endLocation = getEndLocation(post);
+        double s_lat = Double.parseDouble(post.getPostStartLatitude());
+        double s_lon = Double.parseDouble(post.getPostStartLongitude());
+
+        double e_lat = Double.parseDouble(post.getPostEndLatitude());
+        double e_lon = Double.parseDouble(post.getPostEndLongitude());
+
+        String startLocation = getStartLocation(s_lat, s_lon);
+        String endLocation = getEndLocation(e_lat, e_lon);
 
         storageReference = FirebaseStorage.getInstance().getReference(); // storage 정보
 
@@ -84,7 +90,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.tvUser.setText(post.getUserEmail());
         holder.tvUser2.setText(post.getUserEmail());
         holder.start.setText(startLocation);
+        holder.start2.setText(startLocation);
         holder.end.setText(endLocation);
+        holder.end2.setText(endLocation);
         //Log.d("이메일",post.getUserEmail());
         postID = post.getPostID();
 
@@ -132,15 +140,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             @Override
             public void onClick(View view) {
                 FragmentManager fm = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                ShowMapFragment s = ShowMapFragment.getInstance();
+                ShowMapFragment s = ShowMapFragment.getInstance(s_lat, s_lon, e_lat, e_lon);
                 fm.beginTransaction().add(s,"show_map").commit() ;
             }
         });
     }
 
-    private String getStartLocation(PostResult post) {
-        double lat = Double.parseDouble(post.getPostStartLatitude());
-        double lon = Double.parseDouble(post.getPostStartLongitude());
+    private String getStartLocation(double lat, double lon) {
+
         List<Address> list = null;
         try {
             System.out.println("lat: " + lat + "lon: " + lon);
@@ -160,9 +167,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return "error";
     }
 
-    private String getEndLocation(PostResult post) {
-        double lat = Double.parseDouble(post.getPostEndLatitude());
-        double lon = Double.parseDouble(post.getPostEndLongitude());
+    private String getEndLocation(double lat, double lon) {
 
         List<Address> list = null;
         try {
@@ -206,7 +211,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private Button buttonProfile;
         private Button buttonConMap;
         private TextView start;
+        private TextView start2;
         private TextView end;
+        private TextView end2;
 
         private TextView PriceEditText;
 
@@ -227,7 +234,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             buttonConMap = itemView.findViewById(R.id.show_map_btn);
 
             start = itemView.findViewById(R.id.post_start);
+            start2 = itemView.findViewById(R.id.post_start2);
             end = itemView.findViewById(R.id.post_end);
+            end2 = itemView.findViewById(R.id.post_end2);
 
             geocoder = new Geocoder(itemView.getContext(), Locale.KOREA);
         }

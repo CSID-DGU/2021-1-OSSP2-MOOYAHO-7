@@ -20,87 +20,110 @@
             android:layout_height="440dp"
             tools:ignore="MissingConstraints" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="151dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <EditText
+                    android:id="@+id/start_loc"
+                    android:layout_width="220dp"
+                    android:layout_height="41dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:textSize="14sp"
+                    tools:ignore="MissingConstraints" />
+
+                <Button
+                    android:id="@+id/startButton"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="위치 확인"
+                    android:textSize="10sp" />
 
-                    <EditText
-                        android:id="@+id/start_loc"
-                        android:layout_width="269dp"
-                        android:layout_height="41dp"
-                        android:layout_marginTop="12dp"
-                        tools:ignore="MissingConstraints" />
-
-                    <Button
-                        android:id="@+id/startButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="위치 확인" />
-
-                    <Button
-                        android:id="@+id/my_location1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="자신의 위치" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/my_location1"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/end_loc"
-                        android:layout_width="269dp"
-                        android:layout_height="41dp"
-                        android:layout_marginTop="8dp"
-                        tools:ignore="MissingConstraints" />
-
-                    <Button
-                        android:id="@+id/endButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="위치 확인" />
-
-                    <Button
-                        android:id="@+id/my_location2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="자신의 위치" />
-
-                </LinearLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:text="내   위치"
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/resultArea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+                <EditText
+                    android:id="@+id/end_loc"
+                    android:layout_width="220dp"
+                    android:layout_height="41dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:textSize="14sp"
+                    tools:ignore="MissingConstraints" />
 
-        <Button
-            android:id="@+id/getLoc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="완료" />
+                <Button
+                    android:id="@+id/endButton"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="위치 확인"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/my_location2"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:text="내   위치"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/getLoc"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="완료"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

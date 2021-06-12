@@ -308,7 +308,6 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
         }
         mapFragment.getMapAsync(this);
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-        tv = (TextView)findViewById(R.id.resultArea);
         startText = (EditText)findViewById(R.id.start_loc);
         endText = (EditText)findViewById(R.id.end_loc);
 

@@ -26,7 +26,6 @@
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_dark"
             android:visibility="gone">
 
             <!-- android:text="출발 위치, 도착 위치, 물건의 무게, 가격, 수고비등 상세 정보" -->
@@ -35,18 +34,22 @@
                 android:id="@+id/tv_content_post"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
-                android:background="#faf3f3"
                 android:gravity="center"
                 android:textColor="@color/black" />
 
-            <ImageView
-                android:id="@+id/post_image2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="40dp"
-                app:srcCompat="@drawable/logo" />
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/post_image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/logo" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tv_title_post2"
@@ -57,6 +60,7 @@
                 android:text="제목" />
 
             <TextView
+                android:id="@+id/post_start2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
@@ -64,6 +68,7 @@
                 android:text="시작 위치" />
 
             <TextView
+                android:id="@+id/post_end2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
@@ -94,26 +99,21 @@
                 android:layout_marginTop="120dp"
                 android:text="상세 내용" />
 
-            <ImageView
-                android:id="@+id/mapbutton1"
-                android:layout_width="55dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="200dp"
-                android:layout_marginRight="16dp"
-                app:srcCompat="@drawable/baseline_map_black_48dp"
-                app:tint="#424242" />
-
             <Button
                 android:id="@+id/post_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="150dp"
+                android:layout_marginLeft="200dp"
+                android:layout_marginTop="300dp"
+
                 android:text="요청 수락" />
+
             <Button
                 android:id="@+id/show_map_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="300dp"
                 android:text="위치 상세보기" />
 
 
@@ -122,17 +122,21 @@
         <FrameLayout
             android:id="@+id/cell_title_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#faf3f3">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/post_image"
-                android:layout_width="70dp"
-                android:layout_height="54dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="40dp"
-                app:srcCompat="@drawable/logo" />
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/post_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    app:srcCompat="@drawable/logo" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tv_title_post"
@@ -175,5 +179,13 @@
         </FrameLayout>
 
     </com.example.mooyaho.FoldingCell>
+
+    <TextView
+        android:id="@+id/line6"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_gravity="end"
+        android:background="#70000000"
+        android:text="TextView" />
 
 </LinearLayout>

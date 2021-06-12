@@ -57,42 +57,61 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
                 <EditText
                     android:id="@+id/title"
-                    android:layout_width="240dp"
+                    android:layout_width="220dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginLeft="11dp"
+                    android:layout_gravity="center|center_vertical"
                     android:ems="10"
                     android:hint="요청 제목"
                     android:inputType="text"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/Price"
+                    app:layout_constraintHorizontal_bias="0.666"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <EditText
                     android:id="@+id/Price"
-                    android:layout_width="100dp"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_gravity="center|center_horizontal|center_vertical"
                     android:ems="10"
                     android:hint="가격"
                     android:inputType="text"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:layout_editor_absoluteX="259dp" />
 
                 <TextView
                     android:layout_width="30dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_gravity="bottom|right"
                     android:ems="10"
                     android:hint="원"
                     android:inputType="text"
-                    android:textSize="15sp" />
-            </LinearLayout>
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/Price"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.476" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
                 android:id="@+id/startLocation"
-                android:layout_width="390dp"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
@@ -103,7 +122,7 @@
 
             <EditText
                 android:id="@+id/endLocation"
-                android:layout_width="390dp"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
@@ -121,7 +140,7 @@
 
             <EditText
                 android:id="@+id/content"
-                android:layout_width="390dp"
+                android:layout_width="360dp"
                 android:layout_height="130dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
@@ -170,7 +189,7 @@
 
                 <TextView
                     android:id="@+id/line5"
-                    android:layout_width="390dp"
+                    android:layout_width="360dp"
                     android:layout_height="1dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
@@ -179,28 +198,21 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="3dp"
 
-                <Button
-                    android:id="@+id/submit"
-                    android:layout_width="200dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:backgroundTint="#424242"
-                    android:text=" 요청 작성"
-                    android:layout_marginLeft="100dp"
-
-                    android:textColor="#ffffff"
-                    android:textIsSelectable="true"
-                    android:textSize="15sp"
-                    android:textStyle="normal"
-                    app:icon="?android:attr/textSelectHandleRight" />
-
-            </LinearLayout>
+                android:backgroundTint="#424242"
+                android:text="요청 작성"
+                android:textColor="#ffffff"
+                android:textIsSelectable="true"
+                android:textSize="14sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
 

@@ -25,9 +25,12 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Align;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.OverlayImage;
+import com.naver.maps.map.overlay.PathOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -52,12 +55,12 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
     private double lon; // 현재 자신의 위치 경도
 
     Marker marker1;
-    private double startLatitude;
-    private double startLongitude;
+    private static double startLatitude;
+    private static double startLongitude;
 
     Marker marker2;
-    private double endLatitude;
-    private double endLongitude;
+    private static double endLatitude;
+    private static double endLongitude;
 
     FragmentManager fm;
 
@@ -68,8 +71,14 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
 
     private MapView mapView;
 
+    PathOverlay path;
+
     public ShowMapFragment () {};
-    public static ShowMapFragment getInstance() {
+    public static ShowMapFragment getInstance(double startLat, double startLon, double endLat, double endLon) {
+        startLatitude = startLat;
+        startLongitude = startLon;
+        endLatitude = endLat;
+        endLongitude = endLon;
         ShowMapFragment smf = new ShowMapFragment();
         return smf;
     }
@@ -83,24 +92,24 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
         mapView = v.findViewById(R.id.small_map);
         super.onCreate(savedInstanceState);
         // retrofit
-        retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
+        //retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+        //       .addConverterFactory(GsonConverterFactory.create()).build();
 
-        retrofitInterface = retrofit.create(RetrofitInterface.class);
+        //retrofitInterface = retrofit.create(RetrofitInterface.class);
 
-        CallBackGetInfo callBackGetInfo = new CallBackGetInfo() {
-            @Override
-            public void callBackForGetInfo(List<PostResult> lp) {
-                for (int i = 0; i < getInfo.size(); i++) {
+        //CallBackGetInfo callBackGetInfo = new CallBackGetInfo() {
+        //    @Override
+        //    public void callBackForGetInfo(List<PostResult> lp) {
+        //        for (int i = 0; i < getInfo.size(); i++) {
                     //startLatitude = String.valueOf(getInfo.get(i).getPostStartLatitude());
                     //startLatitude = String.valueOf(getInfo.get(i).getPostStartLongitude());
                     //endLatitude = String.valueOf(getInfo.get(i).getPostEndLatitude());
                     //endLongitude = String.valueOf(getInfo.get(i).getPostEndLongitude());
-                }
-            }
-        };
+        //        }
+        //    }
+        //};
 
-        handleGetAll(callBackGetInfo);
+        //handleGetAll(callBackGetInfo);
 
         mapView.getMapAsync(this);
 
@@ -124,6 +133,7 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
         myLocationSearchAndMarker(naverMap);    // 자신의 위치 찍기
         endLocationMarker(naverMap);   // 시작 위치 검색 후 찍기
         startLocationMarker(naverMap); // 도착 위치 검색 후 찍기
+        setPathLine(naverMap);
     }
 
     private void settingUI(@NonNull NaverMap naverMap) {
@@ -132,6 +142,14 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
         uiSettings.setScaleBarEnabled(true);    // 거리 (축척)
         uiSettings.setZoomControlEnabled(true); // 줌
         uiSettings.setLocationButtonEnabled(true);  // 내가있는 곳
+    }
+
+    private void setPathLine(NaverMap naverMap){
+        path.setCoords(Arrays.asList(
+                new LatLng(startLatitude, startLongitude),
+                new LatLng(endLatitude, endLongitude)
+        ));
+        path.setMap(naverMap);
     }
 
     private void myLocationSearchAndMarker(@NonNull NaverMap naverMap) {
@@ -151,6 +169,7 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
         marker1 = new Marker();
         marker2 = new Marker();
         getInfo = new ArrayList<PostResult>();
+        path = new PathOverlay();
     }
 
     private void startLocationMarker(@NonNull NaverMap naverMap) {
@@ -169,36 +188,33 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
 
     private void endLocationMarker(@NonNull NaverMap naverMap) {
         // start 위치 마커 찍기
-        LatLng point = new LatLng(startLatitude, startLongitude);
+        LatLng point = new LatLng(endLatitude, endLongitude);
 
-        marker1.setPosition(point);
-        marker1.setWidth(Marker.SIZE_AUTO);
-        marker1.setHeight(Marker.SIZE_AUTO);
-        marker1.setIconPerspectiveEnabled(true);
-        marker1.setCaptionText("시작 위치");
-        marker1.setCaptionAligns(Align.Top);
+        marker2.setPosition(point);
+        marker2.setWidth(Marker.SIZE_AUTO);
+        marker2.setHeight(Marker.SIZE_AUTO);
+        marker2.setIconPerspectiveEnabled(true);
+        marker2.setCaptionText("도착 위치");
+        marker2.setCaptionAligns(Align.Top);
 
-        marker1.setMap(naverMap);
+        marker2.setMap(naverMap);
     }
 
     @Override
     public void onClick(View view) {
         dismiss();
     }
-    private void handleGetAll(CallBackGetInfo callBackGetInfo){
-        Call<List<PostResult>> call = retrofitInterface.getAll(); // getAll로 서버와 통신
-        call.enqueue(new Callback<List<PostResult>>() {
-            @Override
-            public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
-                System.out.println("여기다!!");
-                getInfo = response.body(); // response.body에는 모든 요청 객체가 배열로 담겨져 있음
-                callBackGetInfo.callBackForGetInfo(getInfo);
-            }
-
-            @Override
-            public void onFailure(Call<List<PostResult>> call, Throwable t) {
-                System.out.println("여기다2");
-            }
-        });
-    }
+    //private void handleGetAll(CallBackGetInfo callBackGetInfo){
+    //    Call<List<PostResult>> call = retrofitInterface.getAll(); // getAll로 서버와 통신
+    //    call.enqueue(new Callback<List<PostResult>>() {
+    //        @Override
+    //        public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
+    //           getInfo = response.body(); // response.body에는 모든 요청 객체가 배열로 담겨져 있음
+    //            callBackGetInfo.callBackForGetInfo(getInfo);
+    //       }
+    //
+    //  @Override
+    //        public void onFailure(Call<List<PostResult>> call, Throwable t) { }
+    //    });
+    //}
 }
