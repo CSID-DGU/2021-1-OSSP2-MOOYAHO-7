@@ -73,8 +73,6 @@ public class DeliverRequestActivity extends AppCompatActivity {
         Intent loc = getIntent();
         String start = loc.getStringExtra("start");
         String end = loc.getStringExtra("end");
-        System.out.println("start: " + start);
-        System.out.println("end: " + end);
 
         startEditText.setText(start);
         endEditText.setText(end);

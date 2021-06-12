@@ -97,11 +97,31 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String getEdit1 = startText.getText().toString();
+                String getEdit2 = endText.getText().toString();
+
+                if(getEdit1.getBytes().length <= 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "시작 주소을 채워주세요",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(getEdit2.getBytes().length <= 0) {
+                    Toast.makeText(getApplicationContext(),
+                            "도착 주소을 채워주세요",
+                            Toast.LENGTH_LONG).show();
+                   return;
+                }
+
                 String startLocation = ((EditText) findViewById(R.id.start_loc)).getText().toString();
                 String endLocation = ((EditText) findViewById(R.id.end_loc)).getText().toString();
 
                 myIntent.putExtra("start", startLocation);
                 myIntent.putExtra("end", endLocation);
+                myIntent.putExtra("startLat", startLatitude);
+                myIntent.putExtra("startLon", startLongitude);
+                myIntent.putExtra("endLat", endLatitude);
+                myIntent.putExtra("endLon", endLongitude);
                 startActivity(myIntent);
             }
         });
