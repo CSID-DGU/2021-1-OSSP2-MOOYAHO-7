@@ -49,7 +49,9 @@
             android:text="마지막 메세지"
             android:textAllCaps="false"
             android:textColor="@color/main"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/chatitem_textview_timestamp"
