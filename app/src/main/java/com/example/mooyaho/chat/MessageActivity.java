@@ -238,7 +238,8 @@ public class MessageActivity extends AppCompatActivity {
                 messageViewHolder.textView_massage.setText(comments.get(position).message);
                 messageViewHolder.textView_massage.setBackgroundResource(R.drawable.right);
                 messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
-                messageViewHolder.textView_massage.setTextSize(25);
+                messageViewHolder.textView_massage.setTextSize(20);
+
                 messageViewHolder.linearLayout_messageContainer.setGravity(Gravity.RIGHT);
             } else { //상대방이 보낸 메세지
                 messageViewHolder.imageView_profile.setVisibility(View.VISIBLE);
@@ -246,7 +247,7 @@ public class MessageActivity extends AppCompatActivity {
                 messageViewHolder.textView_massage.setText(comments.get(position).message);
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
                 messageViewHolder.textView_massage.setBackgroundResource(R.drawable.left);
-                messageViewHolder.textView_massage.setTextSize(25);
+                messageViewHolder.textView_massage.setTextSize(20);
                 messageViewHolder.linearLayout_messageContainer.setGravity(Gravity.LEFT);
                 Picasso.get().load(profileUri).placeholder(R.drawable.ic_launcher_foreground).into(messageViewHolder.imageView_profile);
             }

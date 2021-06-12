@@ -88,7 +88,6 @@ public class DeliverRequestActivity extends AppCompatActivity {
         endEditText = (EditText) findViewById(R.id.endLocation);
         contentEditTxt = (EditText) findViewById(R.id.content);
         buttonSubmit = (Button) findViewById(R.id.submit);
-        buttonGet = (Button) findViewById(R.id.get);
         buttonMap = (ImageView) findViewById(R.id.mapbutton);
         buttonfindLoc = (Button) findViewById(R.id.find_loc2);
 
@@ -154,12 +153,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
             }
         });
 
-        buttonGet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handleGet();
-            }
-        });
+
 
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override

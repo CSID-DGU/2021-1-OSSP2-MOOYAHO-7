@@ -67,6 +67,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.tvPostTitle2.setText(post.getPostTitle());
         holder.tvPostContent2.setText(post.getPostContent());
         holder.tvUser.setText(post.getUserEmail());
+        holder.tvUser2.setText(post.getUserEmail());
+
         //Log.d("이메일",post.getUserEmail());
         postID = post.getPostID();
 
@@ -79,6 +81,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             public void onSuccess(Uri uri) {
                 //Log.d("성공", "이미지 다운로드 성공");
                 Picasso.get().load(uri).into(holder.postImage);
+                Picasso.get().load(uri).into(holder.postImage2);
             }
 
         });
@@ -116,9 +119,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private TextView tvPostTitle;
         private TextView tvPostContnet;
         private TextView tvUser;
+        private TextView tvUser2;
         private TextView tvPostTitle2;
         private TextView tvPostContent2;
         private ImageView postImage;
+        private ImageView postImage2;
+
+
         private Button buttonProfile;
 
         public PostViewHolder(@NonNull View itemView) {
@@ -129,11 +136,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             tvPostContnet = itemView.findViewById(R.id.tv_content_post);
 
             tvUser = itemView.findViewById(R.id.tv_user);
+            tvUser2 = itemView.findViewById(R.id.tv_user2);
+
             tvPostTitle2 = itemView.findViewById(R.id.tv_title_post2);
             tvPostContent2 = itemView.findViewById(R.id.tv_content_post2);
             postImage = itemView.findViewById(R.id.post_image);
+            postImage2 = itemView.findViewById(R.id.post_image2);
 
-            buttonProfile = itemView.findViewById(R.id.profile_button);
+            buttonProfile = itemView.findViewById(R.id.post_button);
         }
     }
 }

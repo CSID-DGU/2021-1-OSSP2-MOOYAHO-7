@@ -65,7 +65,7 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     private String errorMessage = "can't find that";
 
-    private Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+    private Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -315,6 +315,7 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
 
         marker1 = new Marker();
         marker2 = new Marker();
+        geocoder = new Geocoder(this);
 
         sbutton = (Button)findViewById(R.id.startButton);
         ebutton = (Button)findViewById(R.id.endButton);
