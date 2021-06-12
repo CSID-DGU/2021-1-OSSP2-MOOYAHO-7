@@ -2,6 +2,7 @@ package com.example.mooyaho;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.LocusId;
 import android.graphics.PointF;
 import android.location.Address;
 import android.location.Geocoder;
@@ -44,8 +45,9 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
+
     // 자신 위치
-    private double lat; 
+    private double lat;
     private double lon;
     // 시작 위치
     Marker marker1;
@@ -66,6 +68,8 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
     private Button sbutton;
     private Button ebutton;
     private Button submitButton;
+    private Button myLocationbutton1;
+    private Button myLocationbutton2;
 
     private String errorMessage = "can't find that";
 
@@ -76,20 +80,31 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_findmap);
         initialMap();
+
     }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        UiSettings uiSettings = naverMap.getUiSettings();
-        uiSettings.setCompassEnabled(true); // 나침반
-        uiSettings.setScaleBarEnabled(true);    // 거리 (축척)
-        uiSettings.setZoomControlEnabled(true); // 줌
-        uiSettings.setLocationButtonEnabled(true);  // 내가있는 곳
+        settingUI(naverMap);    // Ui setting
 
         myLocationSearchAndMarker(naverMap);    // 자신의 위치 찍기
         endLocationSearchAndMarker(naverMap);   // 시작 위치 검색 후 찍기
         startLocationSearchAndMarker(naverMap); // 도착 위치 검색 후 찍기
+        postData();
+    }
+    private void postData(){
+        Intent myIntent = new Intent(this, DeliverRequestActivity.class);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String startLocation = ((EditText) findViewById(R.id.start_loc)).getText().toString();
+                String endLocation = ((EditText) findViewById(R.id.end_loc)).getText().toString();
 
+                myIntent.putExtra("start", startLocation);
+                myIntent.putExtra("end", endLocation);
+                startActivity(myIntent);
+            }
+        });
     }
     private void myLocationSearchAndMarker(@NonNull NaverMap naverMap) {
         naverMap.setLocationSource(locationSource);
@@ -100,9 +115,78 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
             public void onLocationChange(@NotNull Location location) {
                 lat = location.getLatitude();
                 lon = location.getLongitude();
+                setToMyLocation();        // 자신 위치 검색 후 찍기
             }
         });
     }
+
+    private void setToMyLocation() {
+
+        myLocationbutton1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                List<Address> list = null;
+                try {
+                    System.out.println("lat: " + lat + "lon: " + lon);
+                    list = geocoder.getFromLocation(lat, lon, 10);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("test","my location error");
+                }
+                if(list != null) {
+                    if(list.size() == 0){
+                        System.out.println("size = " + list.size());
+                        System.out.println(list.get(0).toString());
+                        Toast.makeText(getApplicationContext(),
+                                "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        startText.setText(list.get(0).getAddressLine(0));
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),
+                        "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
+                        Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+
+        myLocationbutton2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                List<Address> list = null;
+                try {
+                    System.out.println("lat: " + lat + "lon: " + lon);
+                    list = geocoder.getFromLocation(lat, lon, 10);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("test","my location error");
+                }
+                if(list != null) {
+                    if(list.size() == 0){
+                        System.out.println("size = " + list.size());
+                        System.out.println(list.get(0).toString());
+                        Toast.makeText(getApplicationContext(),
+                                "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        endText.setText(list.get(0).getAddressLine(0));
+                    }
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),
+                            "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
+                            Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+    }
+
     private void startLocationSearchAndMarker(@NonNull NaverMap naverMap) {
         // start 위치 마커 찍기
         sbutton.setOnClickListener(new View.OnClickListener(){
@@ -197,7 +281,14 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
     }
+    private void settingUI(@NonNull NaverMap naverMap) {
 
+        UiSettings uiSettings = naverMap.getUiSettings();
+        uiSettings.setCompassEnabled(true); // 나침반
+        uiSettings.setScaleBarEnabled(true);    // 거리 (축척)
+        uiSettings.setZoomControlEnabled(true); // 줌
+        uiSettings.setLocationButtonEnabled(true);  // 내가있는 곳
+    }
     private void initialMap(){
         FragmentManager fm = getSupportFragmentManager();
         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
@@ -216,6 +307,9 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
 
         sbutton = (Button)findViewById(R.id.startButton);
         ebutton = (Button)findViewById(R.id.endButton);
-        submitButton = (Button)findViewById(R.id.submit);
+        myLocationbutton1 = (Button)findViewById((R.id.my_location1));
+        myLocationbutton2 = (Button)findViewById((R.id.my_location2));
+
+        submitButton = (Button)findViewById(R.id.getLoc);
     }
 }

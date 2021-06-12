@@ -51,7 +51,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
     // HTTP 통신을 위한 라이브러리
     private Retrofit retrofit;
     // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
-    private  String BASE_URL = "http://192.168.0.180:3000";
+    private String BASE_URL = "http://192.168.0.180:3000";
     // 에뮬레이터로 실행 시(그냥 루프백 아이피라 보면 됨)
     //private  String BASE_URL = "http://10.0.2.2:3000";
     // 사용자가 정의한 통신 방법? RESTFUL API? 그런 느낌
@@ -60,14 +60,24 @@ public class DeliverRequestActivity extends AppCompatActivity {
     ImageView postImage;
     Button buttonUpload;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver_request);
         initView();
         setButtonClickListener();
+        getLocation();
         handleGet();
+    }
+    private void getLocation(){
+        Intent loc = getIntent();
+        String start = loc.getStringExtra("start");
+        String end = loc.getStringExtra("end");
+        System.out.println("start: " + start);
+        System.out.println("end: " + end);
+
+        startEditText.setText(start);
+        endEditText.setText(end);
     }
 
     private void initView() {
@@ -96,7 +106,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
 
     private void uploadImageToFirebase(Uri imageUri) { // 이미지를 사용자 갤러리에서 가져오는 데 성공하면 파이어베이스에 업로드
         // userID대신에 node에서  postID 받아서 +1 해서 업로드하고 싶음
-        StorageReference fileRef = storageReference.child("posts/"+postID+"_postImage.jpg"); // 업로드 위치
+        StorageReference fileRef = storageReference.child("posts/" + postID + "_postImage.jpg"); // 업로드 위치
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) { // 업로드 성공
@@ -119,8 +129,8 @@ public class DeliverRequestActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // 사용자 갤러리에서 이미지 가져왔다면
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1000) {
-            if(resultCode == Activity.RESULT_OK){
+        if (requestCode == 1000) {
+            if (resultCode == Activity.RESULT_OK) {
                 Uri imageUri = data.getData();
                 //profileImage.setImageURI(imageUri);
                 uploadImageToFirebase(imageUri);
@@ -160,9 +170,9 @@ public class DeliverRequestActivity extends AppCompatActivity {
             }
         });
 
-        buttonfindLoc.setOnClickListener(new View.OnClickListener(){
+        buttonfindLoc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), FindMapActivity.class));
             }
         });
@@ -186,19 +196,18 @@ public class DeliverRequestActivity extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) { // 대답 옴
-                if(response.code() == 200){ // 글 작성 성공(서버에서 200 보내줌)
+                if (response.code() == 200) { // 글 작성 성공(서버에서 200 보내줌)
                     Toast.makeText(DeliverRequestActivity.this, "글 작성 성공", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
-                }
-                else{ // 서버에서 200 안보내줌
+                } else { // 서버에서 200 안보내줌
                     Toast.makeText(DeliverRequestActivity.this, "글 작성 실패 1", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) { // 대답 자체가 안옴(서버 안열었거나..)
-                Toast.makeText( DeliverRequestActivity.this, "글 작성 실패 2", Toast.LENGTH_LONG).show();
+                Toast.makeText(DeliverRequestActivity.this, "글 작성 실패 2", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -209,14 +218,13 @@ public class DeliverRequestActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PostResult> call, Response<PostResult> response) { // 서버에서 대답 옴
 
-                if(response.code() == 200) { // 정보 가져오기 성공(서버에서 200 보내줌)
+                if (response.code() == 200) { // 정보 가져오기 성공(서버에서 200 보내줌)
 
                     // 이제 PostResult의 get으로 액티비티 내용을 채움
                     postID = (response.body().getPostID());
                     Toast.makeText(DeliverRequestActivity.this, postID, Toast.LENGTH_LONG).show();
 
-                }
-                else{
+                } else {
                     Toast.makeText(DeliverRequestActivity.this, "정보 가져오기 실패 1", Toast.LENGTH_LONG).show();
                 }
             }
@@ -228,6 +236,4 @@ public class DeliverRequestActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

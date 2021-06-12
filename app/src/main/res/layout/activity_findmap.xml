@@ -49,6 +49,13 @@
                         android:layout_weight="1"
                         android:text="위치 확인" />
 
+                    <Button
+                        android:id="@+id/my_location1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="자신의 위치" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -69,6 +76,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="위치 확인" />
+
+                    <Button
+                        android:id="@+id/my_location2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="자신의 위치" />
 
                 </LinearLayout>
 

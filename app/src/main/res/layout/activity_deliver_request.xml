@@ -50,9 +50,33 @@
 
             <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/title" android:layout_gravity="center" android:textSize="20sp" android:inputType="text" android:hint="요청 제목" android:ems="10" android:layout_marginTop="12dp"/>
 
-            <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/startLocation" android:layout_gravity="center" android:textSize="20sp" android:inputType="text" android:hint="전달 시작 위치" android:ems="10" android:layout_marginTop="12dp"/>
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/startLocation"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:inputType="text"
+                android:hint="전달 시작 위치"
+                android:ems="10"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"
+                android:focusableInTouchMode="false"
+                />
 
-            <EditText android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/endLocation" android:layout_gravity="center" android:textSize="20sp" android:inputType="text" android:hint="전달 도착 위치" android:ems="10" android:layout_marginTop="12dp"/>
+            <EditText
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/endLocation"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:inputType="text"
+                android:hint="전달 도착 위치"
+                android:ems="10"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"
+                android:focusableInTouchMode="false"
+                />
 
             <Button
                 android:id="@+id/find_loc2"
