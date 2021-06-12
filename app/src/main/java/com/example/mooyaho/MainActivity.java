@@ -87,17 +87,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private ArrayList<PostResult> getDataPost(){
-                ArrayList<PostResult> list = new ArrayList<>();
-
-                for(int i=0;i<rs.size();i++){
-                    PostResult newPost
-                            = new PostResult(
-                            rs.get(i).getPostID(),
-                            rs.get(i).getUserEmail(),
-                            rs.get(i).getPostTitle(),
-                            rs.get(i).getPostContent(),
-                            rs.get(i).getPostTitle() // 원래는 loaction
-                    );
+        ArrayList<PostResult> list = new ArrayList<>();
+        for(int i=0;i<rs.size();i++) {
+            PostResult newPost
+                    = new PostResult(
+                    rs.get(i).getPostID(),
+                    rs.get(i).getUserEmail(),
+                    rs.get(i).getPostTitle(),
+                    rs.get(i).getPostContent(),
+                    rs.get(i).getPostStartLatitude(),
+                    rs.get(i).getPostStartLongitude(),
+                    rs.get(i).getPostEndLatitude(),
+                    rs.get(i).getPostEndLongitude()
+            );
             list.add(newPost);
         }
         return list;
@@ -118,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void initView() {
         buttonHome = (ImageButton) findViewById(R.id.home);

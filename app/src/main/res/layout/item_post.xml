@@ -71,6 +71,7 @@
                 android:text="도착 위치" />
 
             <TextView
+                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
@@ -109,6 +110,11 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="150dp"
                 android:text="요청 수락" />
+            <Button
+                android:id="@+id/show_map_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="위치 상세보기" />
 
 
         </FrameLayout>
@@ -137,6 +143,7 @@
                 android:text="제목" />
 
             <TextView
+                android:id="@+id/post_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
@@ -144,6 +151,7 @@
                 android:text="시작 위치" />
 
             <TextView
+                android:id="@+id/post_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
