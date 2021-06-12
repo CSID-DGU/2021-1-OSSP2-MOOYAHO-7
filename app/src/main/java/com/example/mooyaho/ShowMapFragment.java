@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 import com.example.mooyaho.data_class.PostResult;
 import com.google.firebase.database.annotations.NotNull;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.geometry.LatLngBounds;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
@@ -24,6 +26,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Align;
+import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.overlay.PathOverlay;
@@ -129,11 +132,17 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         settingUI(naverMap);    // Ui setting
-
         myLocationSearchAndMarker(naverMap);    // 자신의 위치 찍기
-        endLocationMarker(naverMap);   // 시작 위치 검색 후 찍기
-        startLocationMarker(naverMap); // 도착 위치 검색 후 찍기
+        startLocationMarker(naverMap); // 시작 위치 검색 후 찍기
+        endLocationMarker(naverMap);   // 도착 위치 검색 후 찍기
+        cameraSetting(naverMap);    // 카메라 셋팅
         setPathLine(naverMap);
+    }
+    private void cameraSetting(@NonNull NaverMap naverMap){
+        double lat = Math.abs(endLatitude+startLatitude)/2;
+        double lon = Math.abs(endLongitude+startLongitude)/2;
+        CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(new LatLng(lat, lon), 14);
+        naverMap.moveCamera(cameraUpdate);
     }
 
     private void settingUI(@NonNull NaverMap naverMap) {
