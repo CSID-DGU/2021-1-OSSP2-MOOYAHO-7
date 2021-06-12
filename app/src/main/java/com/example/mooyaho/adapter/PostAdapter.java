@@ -26,6 +26,7 @@ import com.example.mooyaho.FoldingCell;
 import com.example.mooyaho.MainActivity;
 import com.example.mooyaho.ProfileActivity;
 import com.example.mooyaho.R;
+import com.example.mooyaho.RetrofitInterface;
 import com.example.mooyaho.ShowMapFragment;
 import com.example.mooyaho.data_class.PostResult;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,8 +43,19 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
+    // HTTP 통신을 위한 라이브러리
+    private Retrofit retrofit;
+    // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
+    private  String BASE_URL = "http://10.90.0.110:3000";
+    // 에뮬레이터로 실행 시(그냥 루프백 아이피라 보면 됨)
+    //private  String BASE_URL = "http://10.0.2.2:3000";
+    // 사용자가 정의한 통신 방법? RESTFUL API? 그런 느낌
+    private RetrofitInterface retrofitInterface;
 
     StorageReference storageReference;
     String postID;
@@ -81,6 +93,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         String startLocation = getStartLocation(s_lat, s_lon);
         String endLocation = getEndLocation(e_lat, e_lon);
 
+        retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
         storageReference = FirebaseStorage.getInstance().getReference(); // storage 정보
 
         holder.tvPostTitle.setText(post.getPostTitle());
@@ -107,7 +122,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 Picasso.get().load(uri).into(holder.postImage);
                 Picasso.get().load(uri).into(holder.postImage2);
             }
-
         });
 
         holder.tvUser.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +237,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             foldingCell = itemView.findViewById(R.id.folding_cell);
             tvPostTitle = itemView.findViewById(R.id.tv_title_post);
             tvPostContnet = itemView.findViewById(R.id.tv_content_post);
-            PriceEditText = itemView.findViewById(R.id.price);
             tvUser = itemView.findViewById(R.id.tv_user);
             tvUser2= itemView.findViewById(R.id.tv_user2);
             tvPostTitle2 = itemView.findViewById(R.id.tv_title_post2);

@@ -1,6 +1,7 @@
 package com.example.mooyaho;
 
 import com.example.mooyaho.data_class.PostResult;
+import com.example.mooyaho.data_class.Review;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,5 +20,14 @@ public interface RetrofitInterface { // 노드-mysql 연동을 위한 Retrofit �
 
     @POST("/getAll")
     Call<List<PostResult>> getAll();
+
+    @POST("/delete")
+    Call<Void> executeDelete(@Body HashMap<String, String> map);
+
+    @POST("/review")
+    Call<Void> executeReview(@Body HashMap<String, String> map);
+
+    @POST("/getReview")
+    Call<List<Review>> executeGetReview(@Body HashMap<String, String> map);
 
 }
