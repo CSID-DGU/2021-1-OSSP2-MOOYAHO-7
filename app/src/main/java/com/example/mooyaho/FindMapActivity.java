@@ -42,7 +42,6 @@ import java.util.jar.Attributes;
 
 public class FindMapActivity extends AppCompatActivity implements OnMapReadyCallback  {
 
-    private NaverMap naverMap;  // 하나의 map 객체
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
     // 자신 위치
@@ -79,21 +78,23 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
         initialMap();
     }
 
-    public String bringStart() {
-        EditText et;
-        et = (EditText)findViewById(R.id.start_loc);
-        return et.toString();
-    }
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        naverMap.setLocationSource(locationSource);
-        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setCompassEnabled(true); // 나침반
         uiSettings.setScaleBarEnabled(true);    // 거리 (축척)
         uiSettings.setZoomControlEnabled(true); // 줌
         uiSettings.setLocationButtonEnabled(true);  // 내가있는 곳
+
+        myLocationSearchAndMarker(naverMap);    // 자신의 위치 찍기
+        endLocationSearchAndMarker(naverMap);   // 시작 위치 검색 후 찍기
+        startLocationSearchAndMarker(naverMap); // 도착 위치 검색 후 찍기
+
+    }
+    private void myLocationSearchAndMarker(@NonNull NaverMap naverMap) {
+        naverMap.setLocationSource(locationSource);
+        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+
         naverMap.addOnLocationChangeListener(new NaverMap.OnLocationChangeListener() {
             @Override
             public void onLocationChange(@NotNull Location location) {
@@ -101,12 +102,14 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                 lon = location.getLongitude();
             }
         });
+    }
+    private void startLocationSearchAndMarker(@NonNull NaverMap naverMap) {
         // start 위치 마커 찍기
         sbutton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 List<Address> list = null;
-                String str = startText.getText().toString();
+                String str = startText.getText().toString();    // 여기서 startText 값 넣기
                 try {
                     list = geocoder.getFromLocationName(str, 10);
                 } catch (IOException e){
@@ -145,13 +148,16 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             }
         });
+    }
+
+    private void endLocationSearchAndMarker(@NonNull NaverMap naverMap) {
         // end 위치 마커 찍기
         ebutton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 List<Address> list = null;
 
-                String str = endText.getText().toString();
+                String str = endText.getText().toString();    // 여기서 endText 값 넣기
                 try {
                     list = geocoder.getFromLocationName(str, 10);
                 } catch (IOException e){
@@ -162,8 +168,8 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                 if(list != null){
                     if(list.size() == 0){
                         Toast.makeText(getApplicationContext(),
-                            "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
-                            Toast.LENGTH_LONG).show();
+                                "해당 되는 주소정보가 없습니다. 좀 더 자세히 입력해주세요",
+                                Toast.LENGTH_LONG).show();
                         endIsEmpty = true;
                     } else {
                         endIsEmpty = false;
@@ -190,7 +196,6 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             }
         });
-
     }
 
     private void initialMap(){
