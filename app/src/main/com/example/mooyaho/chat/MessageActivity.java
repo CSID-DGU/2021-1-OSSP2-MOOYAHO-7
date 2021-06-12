@@ -1,0 +1,287 @@
+package com.example.mooyaho.chat;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.mooyaho.R;
+import com.example.mooyaho.data_class.Chat;
+import com.example.mooyaho.data_class.User;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class MessageActivity extends AppCompatActivity {
+
+    private String destinationUid;
+    private Button button;
+    private EditText editText;
+
+    private String uid;
+    private Uri profileUri;
+    private String chatRoomUid;
+    private RecyclerView recyclerView;
+
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+
+    private FirebaseFunctions mFunctions = FirebaseFunctions.getInstance();         // firebase cloud functions
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference(); // storage 정보
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_message);
+
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); //채팅을 요구하는 uid, 단말기에 로그인된 uid
+        destinationUid = getIntent().getStringExtra("destinationUid"); //채팅을 당하는 uid
+        button = (Button) findViewById(R.id.messageActivity_button);
+        editText = (EditText) findViewById(R.id.messageActivity_editText);
+        recyclerView = (RecyclerView) findViewById(R.id.messageActivity_recyclerview);
+        getProfileUri(destinationUid);
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Chat chat = new Chat();
+                chat.users.put(uid, true);
+                chat.users.put(destinationUid, true);
+
+                if (chatRoomUid == null) { //null이면 채팅방 생성
+                    button.setEnabled(false);
+                    FirebaseDatabase.getInstance().getReference().child("chatrooms").push().setValue(chat).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            checkChatRoom();
+                        }
+                    });
+
+                } else { //null이 아니면 채팅룸에 채팅방 이름 밑에 메세지 넣기
+                    Chat.Comment comment = new Chat.Comment();
+                    comment.uid = uid;
+                    comment.message = editText.getText().toString();
+                    comment.timestamp = ServerValue.TIMESTAMP;
+                    FirebaseDatabase.getInstance()
+                            .getReference()
+                            .child("chatrooms")
+                            .child(chatRoomUid)
+                            .child("comments")
+                            .push().setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                        // DB에 메세지 전송 완료 후
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            editText.setText("");
+                            callCloudFunction(comment);         // 클라우드 함수 호출하여 서버에 notification 전송 요청
+                        }
+                    });
+                }
+            }
+        });
+
+        checkChatRoom();
+
+    }
+
+    // 상대뱡의 프로필 URI를 얻어오는 함수
+    private void getProfileUri(String userID) {
+        // users 폴더 안에 userID+profile.jpg 사진을 다운로드 받음
+        StorageReference profileRef = storageReference.child("users/" + userID + "profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override // 이미지 다운 성공 시 오픈소스 picasso를 사용해 profileImage에 설정
+            public void onSuccess(Uri uri) {
+                profileUri = uri;
+            }
+        });
+    }
+
+    //채팅룸 중복 확인 함수
+    void checkChatRoom() {
+
+        FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/" + uid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    Chat chat = item.getValue(Chat.class);
+                    if (chat.users.containsKey(destinationUid)) {
+                        chatRoomUid = item.getKey(); //방 아이디
+                        button.setEnabled(true);
+                        //recyclerView에 바인딩
+                        recyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
+                        //어뎁터 넣기
+                        recyclerView.setAdapter(new RecyclerViewAdapter());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    // 파이어베이스 클라우드 함수 Http Request
+    private Task<String> callCloudFunction(Chat.Comment comment) {
+        Map<String, Object> data = new HashMap<>();             // 메시지 내용을 담을 Map
+        data.put("comment", comment.message);
+        data.put("receiverUid", destinationUid);
+
+        return mFunctions.getHttpsCallable("notiRequest")
+                .call(data)
+                .continueWith(new Continuation<HttpsCallableResult, String>() {
+                    @Override
+                    public String then(@NonNull Task<HttpsCallableResult> task) throws Exception {
+                        Map<String, Object> resultData = (Map<String, Object>) task.getResult().getData();
+                        String result = (String) resultData.get("result");
+                        Log.d("Cloud Functions : ", result);                    // response 결과 로그 출력
+                        return result;
+                    }
+                });
+    }
+
+    class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        List<Chat.Comment> comments;
+        User user;
+
+        public RecyclerViewAdapter() {
+            comments = new ArrayList<>();
+
+            FirebaseDatabase.getInstance().getReference().child("Users").child(destinationUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    user = snapshot.getValue(User.class);
+                    getMessageList();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+        void getMessageList() {
+            FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomUid).child("comments").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    comments.clear();
+                    for (DataSnapshot item : snapshot.getChildren()) {
+                        comments.add(item.getValue(Chat.Comment.class));
+                    }
+                    //메세지 갱신
+                    notifyDataSetChanged();
+
+                    recyclerView.scrollToPosition((comments.size() - 1));
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+        
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            //xml에 추가한 view 넣어줌
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
+
+            return new MessageViewHolder(view); //뷰 재사용할때 쓰는 클래스
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            MessageViewHolder messageViewHolder = ((MessageViewHolder) holder);
+            if (comments.get(position).uid.equals(uid)) { //내가보낸 메세지
+                messageViewHolder.imageView_profile.setVisibility(View.GONE);
+                messageViewHolder.textView_massage.setText(comments.get(position).message);
+                messageViewHolder.textView_massage.setBackgroundResource(R.drawable.right);
+                messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
+                messageViewHolder.textView_massage.setTextSize(25);
+                messageViewHolder.linearLayout_messageContainer.setGravity(Gravity.RIGHT);
+            } else { //상대방이 보낸 메세지
+                messageViewHolder.imageView_profile.setVisibility(View.VISIBLE);
+                messageViewHolder.textView_name.setText(user.nickname);
+                messageViewHolder.textView_massage.setText(comments.get(position).message);
+                messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
+                messageViewHolder.textView_massage.setBackgroundResource(R.drawable.left);
+                messageViewHolder.textView_massage.setTextSize(25);
+                messageViewHolder.linearLayout_messageContainer.setGravity(Gravity.LEFT);
+                Picasso.get().load(profileUri).placeholder(R.drawable.ic_launcher_foreground).into(messageViewHolder.imageView_profile);
+            }
+
+            long unixTime = (long) comments.get(position).timestamp;
+            Date date = new Date(unixTime);
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            String time = simpleDateFormat.format(date);
+            messageViewHolder.textView_timestamp.setText(time);
+        }
+
+        @Override
+        public int getItemCount() {
+            return comments.size();
+        }
+    }
+
+    private class MessageViewHolder extends RecyclerView.ViewHolder {
+        public TextView textView_massage;
+        public TextView textView_name;
+        public LinearLayout linearLayout_destination;
+        public LinearLayout linearLayout_main;
+        public LinearLayout linearLayout_messageContainer;
+        public TextView textView_timestamp;
+        public CircleImageView imageView_profile;
+
+        public MessageViewHolder(View view) {
+            super(view);
+            textView_massage = (TextView) view.findViewById((R.id.messageItem_textView_message));
+            textView_name = (TextView) view.findViewById((R.id.messageItem_textView_name));
+            linearLayout_destination = (LinearLayout) view.findViewById((R.id.messageItem_linearLayout_destination));
+            linearLayout_main = (LinearLayout) view.findViewById((R.id.messageItem_linearLayout_main));
+            linearLayout_messageContainer = (LinearLayout) view.findViewById(R.id.messageContainer);
+            textView_timestamp = (TextView) view.findViewById((R.id.messageItem_textView_timestamp));
+            imageView_profile = (CircleImageView) view.findViewById(R.id.chatProfileImage);
+        }
+    }
+}

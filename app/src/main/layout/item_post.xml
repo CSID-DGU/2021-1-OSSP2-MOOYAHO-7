@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <com.example.mooyaho.FoldingCell
+        android:id="@+id/folding_cell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp">
+
+        <FrameLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_content_post"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:gravity="center"
+                android:background="#faf3f3"
+                android:textColor="@color/black" />
+            <!--   android:text="출발 위치, 도착 위치, 물건의 무게, 가격, 수고비등 상세 정보" -->
+
+            <TextView
+                android:id="@+id/tv_title_post2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="제목"/>
+
+                <TextView
+                    android:id="@+id/tv_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="작성자 : "/>
+
+                <Button
+                    android:id="@+id/profile_button"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_height="wrap_content"
+                    android:hint="이동"/>
+
+            <TextView
+                android:id="@+id/tv_content_post2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="본문"/>
+
+            <ImageView
+                android:id="@+id/post_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="150dp"
+                app:srcCompat="@drawable/logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="250dp"
+                android:text="시작 위치"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="300dp"
+                android:text="끝 위치"/>
+
+
+
+        </FrameLayout>
+        ​
+        <FrameLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title_post"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="#faf3f3"
+                android:gravity="center"
+                android:text="주요 물건, 물건 이름, 물건 사진 정보"
+                android:textColor="@color/black" />
+        </FrameLayout>​
+
+
+    </com.example.mooyaho.FoldingCell>
+
+
+</LinearLayout>

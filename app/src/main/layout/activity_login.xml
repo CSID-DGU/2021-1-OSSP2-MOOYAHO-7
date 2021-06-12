@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout android:orientation="vertical" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView android:layout_height="250dp" android:layout_width="250dp" app:srcCompat="@drawable/logo" android:layout_marginRight="100dp" android:layout_marginEnd="100dp" android:layout_marginTop="20dp" android:layout_marginLeft="80dp" android:layout_marginStart="80dp" android:id="@+id/imageView"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="  Email Address"
+        android:inputType="textEmailAddress"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:hint="  Password"
+        android:inputType="textPassword"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#424242"
+        android:text="  Login  "
+        android:textColor="#ffffff"
+        android:textSize="26sp"
+        app:backgroundTint="#424242" />
+
+
+    -<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:layout_marginTop="30dp">
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_marginLeft="100dp" android:id="@+id/reset" android:textSize="16sp" android:textStyle="bold" android:text="비밀번호 재설정"/>
+
+    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_marginLeft="30dp" android:id="@+id/register" android:textSize="16sp" android:textStyle="bold" android:text="회원가입"/>
+
+</LinearLayout>
+
+    <TextView android:layout_height="match_parent" android:layout_width="match_parent" android:textSize="30dp" android:text="Login 화면 입니다." android:gravity="center_vertical|center_horizontal"/>
+
+</LinearLayout>
