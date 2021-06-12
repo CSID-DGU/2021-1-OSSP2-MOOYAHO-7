@@ -2,10 +2,12 @@ package com.example.mooyaho.Fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,14 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mooyaho.R;
+import com.example.mooyaho.SetLoadListener;
 import com.example.mooyaho.chat.MessageActivity;
 import com.example.mooyaho.data_class.Chat;
 import com.example.mooyaho.data_class.User;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,9 +39,13 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.TreeMap;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ChatFragment extends Fragment {
 
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+    private Uri profileUri;
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference(); // storage 정보
 
     @Nullable
     @Override
@@ -46,6 +57,19 @@ public class ChatFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
 
         return view;
+    }
+
+    // 상대뱡의 프로필 URI를 얻어오는 함수
+    private void getProfileUri(String userID, SetLoadListener loadListener) {
+        // users 폴더 안에 userID+profile.jpg 사진을 다운로드 받음
+        StorageReference profileRef = storageReference.child("users/" + userID + "profile.jpg");
+        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override // 이미지 다운 성공 시 오픈소스 picasso를 사용해 profileImage에 설정
+            public void onSuccess(Uri uri) {
+                profileUri = uri;
+                loadListener.onLoadFinished();
+            }
+        });
     }
 
     class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -90,8 +114,15 @@ public class ChatFragment extends Fragment {
                 if(!user.equals(uid)){
                     destinationUid = user;
                     destinationUsers.add(destinationUid);
+                    getProfileUri(destinationUid, new SetLoadListener() {
+                        @Override
+                        public void onLoadFinished() {
+                            Picasso.get().load(profileUri).placeholder(R.drawable.ic_launcher_foreground).into(customViewHolder.imageView_profile);
+                        }
+                    });
                 }
             }
+
             FirebaseDatabase.getInstance().getReference().child("Users").child(destinationUid).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -132,8 +163,6 @@ public class ChatFragment extends Fragment {
         @Override
         public int getItemCount() {
             return chatlist.size();
-
-
         }
 
 
@@ -142,12 +171,15 @@ public class ChatFragment extends Fragment {
             public TextView textView_title;
             public TextView textView_last_message;
             public TextView textView_timestamp;
+            public CircleImageView imageView_profile;
+
             public CustomViewHolder(View view) {
                 super(view);
 
                 textView_title =  (TextView)view.findViewById(R.id.chatitem_textview_title);
                 textView_last_message = (TextView)view.findViewById(R.id.chatitem_textview_lastMessage);
                 textView_timestamp =  (TextView)view.findViewById(R.id.chatitem_textview_timestamp);
+                imageView_profile = (CircleImageView)view.findViewById(R.id.chatProfileImage2);
             }
         }
     }

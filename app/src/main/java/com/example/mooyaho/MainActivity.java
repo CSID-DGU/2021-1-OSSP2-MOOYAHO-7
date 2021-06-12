@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         buttonChatting.setOnClickListener(new View.OnClickListener() { // 채팅창 이동 버튼
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), friendsList.class));
+                startActivity(new Intent(getApplicationContext(), ChatList.class));
             }
         });
         buttonMyPage.setOnClickListener(new View.OnClickListener() { // 마이페이지 이동 버튼
