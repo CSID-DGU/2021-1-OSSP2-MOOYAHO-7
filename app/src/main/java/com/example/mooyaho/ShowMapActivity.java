@@ -57,10 +57,10 @@ public class ShowMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     private void initialMap(){
         FragmentManager fm = getSupportFragmentManager();
-        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
+        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.small_map);
         if (mapFragment == null) {
             mapFragment = MapFragment.newInstance();
-            fm.beginTransaction().add(R.id.map, mapFragment).commit();
+            fm.beginTransaction().add(R.id.small_map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);

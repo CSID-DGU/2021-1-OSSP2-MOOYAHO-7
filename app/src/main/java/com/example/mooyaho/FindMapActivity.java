@@ -1,13 +1,9 @@
 package com.example.mooyaho;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.LocusId;
-import android.graphics.PointF;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,13 +29,9 @@ import com.naver.maps.map.overlay.Align;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.jar.Attributes;
 
 public class FindMapActivity extends AppCompatActivity implements OnMapReadyCallback  {
 
@@ -80,7 +72,6 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_findmap);
         initialMap();
-
     }
 
     @Override
@@ -309,12 +300,12 @@ public class FindMapActivity extends AppCompatActivity implements OnMapReadyCall
         uiSettings.setZoomControlEnabled(true); // 줌
         uiSettings.setLocationButtonEnabled(true);  // 내가있는 곳
     }
-    private void initialMap(){
+    private void initialMap() {
         FragmentManager fm = getSupportFragmentManager();
         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
         if (mapFragment == null) {
             mapFragment = MapFragment.newInstance();
-            fm.beginTransaction().add(R.id.map, mapFragment).commit();
+            fm.beginTransaction().add(R.id.small_map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
