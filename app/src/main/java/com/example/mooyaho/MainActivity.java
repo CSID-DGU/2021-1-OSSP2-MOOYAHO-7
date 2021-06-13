@@ -13,6 +13,7 @@ import com.example.mooyaho.data_class.PostResult;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton buttonChatting;
     ImageButton buttonMyPage;
     ImageView buttonMap;
-
+    SwipeRefreshLayout swipeRefreshLayout;
     private RetrofitInterface retrofitInterface;
     private Retrofit retrofit;
     // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
         buttonHome = (ImageButton) findViewById(R.id.home);
         buttonRequest = (ImageButton) findViewById(R.id.request);
         buttonChatting = (ImageButton) findViewById(R.id.chatting);
@@ -135,9 +137,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setButtonClickListener() {
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                swipeRefreshLayout.setRefreshing(false);
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+
+
+            }
+        });
+
         buttonHome.setOnClickListener(new View.OnClickListener() { // 홈버튼
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
             }
         });
         buttonRequest.setOnClickListener(new View.OnClickListener() {

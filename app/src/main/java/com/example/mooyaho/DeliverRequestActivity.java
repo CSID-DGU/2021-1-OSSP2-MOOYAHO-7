@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.mooyaho.data_class.PostResult;
@@ -34,6 +35,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DeliverRequestActivity extends AppCompatActivity {
+
+    ImageButton buttonHome;
+    ImageButton buttonRequest;
+    ImageButton buttonChatting;
+    ImageButton buttonMyPage;
+
     DatabaseReference databaseReference;
     StorageReference storageReference;
     String userID;
@@ -79,9 +86,18 @@ public class DeliverRequestActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+
+
+
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+
+        buttonHome = (ImageButton) findViewById(R.id.home);
+        buttonRequest = (ImageButton) findViewById(R.id.request);
+        buttonChatting = (ImageButton) findViewById(R.id.chatting);
+        buttonMyPage = (ImageButton) findViewById(R.id.mypage);
 
         titleEditText = (EditText) findViewById(R.id.title);
         startEditText = (EditText) findViewById(R.id.startLocation);
@@ -137,6 +153,33 @@ public class DeliverRequestActivity extends AppCompatActivity {
     }
 
     private void setButtonClickListener() {
+
+        buttonHome.setOnClickListener(new View.OnClickListener() { // 홈버튼
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+            }
+        });
+        buttonRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { // 버튼 클릭시 DeliverRequestActivity 로 이동
+                //startActivity(new Intent(getApplicationContext(), DeliverRequestActivity.class));
+            }
+        });
+        buttonChatting.setOnClickListener(new View.OnClickListener() { // 채팅창 이동 버튼
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ChatList.class));
+            }
+        });
+        buttonMyPage.setOnClickListener(new View.OnClickListener() { // 마이페이지 이동 버튼
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
+            }
+        });
+
 
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,7 +262,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
 
                     // 이제 PostResult의 get으로 액티비티 내용을 채움
                     postID = (response.body().getPostID());
-                    Toast.makeText(DeliverRequestActivity.this, postID, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(DeliverRequestActivity.this, postID, Toast.LENGTH_LONG).show();
 
                 } else {
                     Toast.makeText(DeliverRequestActivity.this, "정보 가져오기 실패 1", Toast.LENGTH_LONG).show();

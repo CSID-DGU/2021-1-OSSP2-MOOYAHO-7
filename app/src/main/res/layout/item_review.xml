@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="asfdasdfsdfasdfasdfasdf"
+            android:hint="asfdasdfsdfasfasdf"
             android:lines="10"
             android:maxWidth="200dp" />
 
@@ -66,13 +66,14 @@
                 android:id="@+id/review_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="날짜날짜날짜" />
+                android:hint="날짜날짜날날짜짜" />
 
             <TextView
+                android:layout_marginTop="25dp"
                 android:id="@+id/review_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="점수점수점수" />
+                android:hint="점수점수점수점수" />
 
         </LinearLayout>
 

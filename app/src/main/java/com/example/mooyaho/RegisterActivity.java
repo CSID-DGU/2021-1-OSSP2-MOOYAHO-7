@@ -64,36 +64,38 @@ public class RegisterActivity extends AppCompatActivity {
 
         // 각각의 스트링 조건 검사
         if (nickname.isEmpty()) {
-            editTextNickname.setError("Full name is required!");
+            editTextNickname.setError("닉네임을 입력해주세요!");
             editTextNickname.requestFocus();
             return;
         }
 
         if (email.isEmpty()) {
-            editTextEmail.setError("Email is required!");
+            editTextEmail.setError("이메일을 입력해주세요!");
+            editTextEmail.requestFocus();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("유효한 이메일을 입력해주세요!");
             editTextEmail.requestFocus();
             return;
         }
 
         int comma = email.indexOf('.');
         if(!email.substring(comma).equals(".edu")){
-            editTextEmail.setError("Please provide valid mail!");
+            editTextEmail.setError("유효한 이메일을 입력해주세요!");
             editTextEmail.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Please provide valid mail!");
-            editTextEmail.requestFocus();
-            return;
-        }
+
         if (password.isEmpty() || password.length() < 6) {
-            editTextPassword.setError("Valid Password is required!");
+            editTextPassword.setError("비밀번호가 너무 짧습니다!");
             editTextPassword.requestFocus();
             return;
         }
         if (!password.equals(confirm)){
-            editTextPassword.setError("비밀번호가 일치하지 않습니다.");
+            editTextPassword.setError("비밀번호가 일치하지 않습니다!");
             editTextPassword.requestFocus();
             return;
         }

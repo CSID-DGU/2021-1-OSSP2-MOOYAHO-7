@@ -2,6 +2,7 @@ package com.example.mooyaho.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
     // HTTP 통신을 위한 라이브러리
     private Retrofit retrofit;
     // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
-    private  String BASE_URL = "http://10.90.0.110:3000";
+    private  String BASE_URL = "http://123.214.18.194:3000";
     // 에뮬레이터로 실행 시(그냥 루프백 아이피라 보면 됨)
     //private  String BASE_URL = "http://10.0.2.2:3000";
     // 사용자가 정의한 통신 방법? RESTFUL API? 그런 느낌
@@ -76,7 +77,19 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
 
         holder.reviewName.setText(review.getReviewSender());
         holder.reviewDate.setText(review.getReviewDate());
-        holder.reviewRate.setText(review.getReviewRate());
+
+        double rate = Double.parseDouble(review.getReviewRate());
+        String star = "";
+        for(int i=0;i<rate;i++){
+            star += "★";
+        }
+
+        int r = 5 - star.length();
+        for(int i=0;i<r;i++){
+            star += "☆";
+        }
+
+        holder.reviewRate.setText(star);
         holder.reviewContent.setText(review.getReviewContent());
 
         Query query = FirebaseDatabase.getInstance().getReference("Users")

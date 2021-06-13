@@ -3,6 +3,7 @@ package com.example.mooyaho;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +60,12 @@ startActivity(intent2);
 
 public class ProfileActivity extends AppCompatActivity {
 
+    ImageButton buttonHome;
+    ImageButton buttonRequest;
+    ImageButton buttonChatting;
+    ImageButton buttonMyPage;
+
+
     FirebaseUser user;
     DatabaseReference databaseReference;
     StorageReference storageReference;
@@ -68,6 +76,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView emailTextView;
     TextView nicknameTextView;
+
+    TextView tvScore;
+
 
     RecyclerView recyclerView;
     private ReviewAdapter reviewAdapter;
@@ -94,6 +105,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void handleGetReview(){
+        ArrayList<Double> scores = new ArrayList<Double>();
+
         Handler mHandler = new Handler();
         mHandler.postDelayed(new Runnable()  {
             public void run() {
@@ -109,11 +122,27 @@ public class ProfileActivity extends AppCompatActivity {
                             public void run() {
                                 // 시간 지난 후 실행할 코딩
                                 rs = response.body(); // response.body에는 모든 요청 객체가 배열로 담겨져 있음
-                                Log.e("Size", String.valueOf(rs.size()));
+                                for(int i=0;i<rs.size();i++){
+                                    Double s = Double.parseDouble(rs.get(i).getReviewRate());
+                                    scores.add(s);
+                                }
+
+                                double temp = 0;
+                                for(int i=0;i<scores.size();i++){
+                                    temp += scores.get(i);
+                                }
+                                temp /= scores.size();
+                                if(scores.size() == 0){
+                                    tvScore.setText("-");
+                                }
+                                else {
+                                    String score = String.valueOf(temp).toString().substring(0, 3);
+                                    tvScore.setText(score);
+                                }
                                 recycleTest(); // 이제 받은 내용으로 recycler view 만들기
 
                             }
-                        }, 1000); // 0.5초후
+                        }, 500); // 0.5초후
                     }
 
                     @Override
@@ -127,6 +156,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void recycleTest(){
         recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
@@ -204,6 +234,14 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+        buttonHome = (ImageButton) findViewById(R.id.home);
+        buttonRequest = (ImageButton) findViewById(R.id.request);
+        buttonChatting = (ImageButton) findViewById(R.id.chatting);
+        buttonMyPage = (ImageButton) findViewById(R.id.mypage);
+
+        tvScore = (TextView)findViewById(R.id.score);
+
         profileImage = (ImageView)findViewById(R.id.profileImage);
         emailTextView = (TextView)findViewById(R.id.emailAddress);
         nicknameTextView = (TextView)findViewById(R.id.nickname);
@@ -225,7 +263,31 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setButtonClickListener() {
+        buttonHome.setOnClickListener(new View.OnClickListener() { // 홈버튼
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
+            }
+        });
+        buttonRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { // 버튼 클릭시 DeliverRequestActivity 로 이동
+                startActivity(new Intent(getApplicationContext(), DeliverRequestActivity.class));
+            }
+        });
+        buttonChatting.setOnClickListener(new View.OnClickListener() { // 채팅창 이동 버튼
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ChatList.class));
+            }
+        });
+        buttonMyPage.setOnClickListener(new View.OnClickListener() { // 마이페이지 이동 버튼
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
+            }
+        });
     }
 
     @Override

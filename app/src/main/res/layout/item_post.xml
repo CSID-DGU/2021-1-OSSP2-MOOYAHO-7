@@ -116,6 +116,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/delete_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:drawableBottom="@drawable/delete_button_image" />
+
+
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="80dp">

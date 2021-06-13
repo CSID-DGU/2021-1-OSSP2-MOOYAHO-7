@@ -1,6 +1,8 @@
 package com.example.mooyaho.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -31,6 +33,8 @@ import com.example.mooyaho.ShowMapFragment;
 import com.example.mooyaho.data_class.PostResult;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -39,10 +43,14 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -51,7 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     // HTTP 통신을 위한 라이브러리
     private Retrofit retrofit;
     // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
-    private  String BASE_URL = "http://10.90.0.110:3000";
+    private  String BASE_URL = "http://123.214.18.194:3000";
     // 에뮬레이터로 실행 시(그냥 루프백 아이피라 보면 됨)
     //private  String BASE_URL = "http://10.0.2.2:3000";
     // 사용자가 정의한 통신 방법? RESTFUL API? 그런 느낌
@@ -144,6 +152,70 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             }
         });
 
+
+        holder.buttonDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder dlg = new AlertDialog.Builder(view.getContext());
+                dlg.setTitle("계발에서 개발까지"); //제목
+                dlg.setMessage("안녕하세요 계발에서 개발까지 입니다."); // 메시지
+                dlg.setIcon(R.drawable.logo); // 아이콘 설정
+
+                dlg.setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+//                버튼 클릭시 동작
+                dlg.setNegativeButton("삭제",new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 유저 정보
+
+                        String postEmail = post.getUserEmail().trim();
+                        String userEmail = user.getEmail().trim();
+
+
+                        if(postEmail.equals(userEmail)) {
+                            //토스트 메시지
+
+                            HashMap<String, String> map = new HashMap<>(); // HashMap 형태로 request 보냄
+                            // HashMap에 정보 넣기
+                            map.put("postID", post.getPostID());
+                            Call<Void> call = retrofitInterface.executeDelete(map); // retrofit으로 post 실행
+                            call.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) { // 대답 옴
+                                    if(response.code() == 200){ // 글 작성 성공(서버에서 200 보내줌)
+                                        Intent intent2 = new Intent(mContext.getApplicationContext(), MainActivity.class);
+                                        mContext.startActivity(intent2);
+                                    }
+                                    else{ // 서버에서 200 안보내줌
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) { // 대답 자체가 안옴(서버 안열었거나..)
+                                    Toast.makeText( view.getContext() , "글 작성 실패 2", Toast.LENGTH_LONG).show();
+                                }
+                            });
+
+                        }
+                        else{
+                            Toast.makeText( view.getContext() , "글 작성자가 아닙니다!!", Toast.LENGTH_LONG).show();
+
+
+                        }
+
+
+                    }
+                });
+                dlg.show();
+            }
+
+        });
+
         holder.foldingCell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -228,6 +300,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private TextView start2;
         private TextView end;
         private TextView end2;
+        private Button buttonDelete;
 
         private TextView PriceEditText;
 
@@ -250,6 +323,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             start2 = itemView.findViewById(R.id.post_start2);
             end = itemView.findViewById(R.id.post_end);
             end2 = itemView.findViewById(R.id.post_end2);
+
+            buttonDelete = itemView.findViewById(R.id.delete_button);
 
             geocoder = new Geocoder(itemView.getContext(), Locale.KOREA);
         }

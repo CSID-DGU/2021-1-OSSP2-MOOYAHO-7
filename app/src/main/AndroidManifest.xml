@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mooyaho"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ReviewTestActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".MyPageActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".RegisterActivity" />
