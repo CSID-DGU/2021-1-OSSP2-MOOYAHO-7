@@ -77,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Retrofit retrofit;
     // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
     // 이더넷 어댑터 이더넷 3 Ipv4 주소
-    private  String BASE_URL = "http://10.90.0.110:3000";
+    private  String BASE_URL = "http://123.214.18.194:3000";
     //private  String BASE_URL = "http://192.168.115.193:3000";
     // 에뮬레이터로 실행 시(그냥 루프백 아이피라 보면 됨)
     //private  String BASE_URL = "http://10.0.2.2:3000";

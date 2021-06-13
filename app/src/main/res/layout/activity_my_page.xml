@@ -71,8 +71,6 @@
     <!-- upside toolbar finish -->
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -157,17 +155,35 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="Logout"
-                android:textColor="#ffff"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:backgroundTint="#424242" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Logout"
+                    android:textColor="#ffff"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#424242" />
+
+                <TextView
+                    android:id="@+id/scorex"
+                    android:layout_marginLeft="150dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="총점 : " />
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="a"/>
+
+            </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"

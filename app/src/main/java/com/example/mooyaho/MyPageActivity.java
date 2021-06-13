@@ -59,7 +59,7 @@ public class MyPageActivity extends AppCompatActivity {
     ImageView profileImage;
     Button buttonUpload;
     String userEmail;
-
+    TextView tvScore;
     RecyclerView recyclerView;
     private ReviewAdapter reviewAdapter;
     List<Review> rs;
@@ -68,7 +68,7 @@ public class MyPageActivity extends AppCompatActivity {
     private Retrofit retrofit;
     // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
     // 이더넷 어댑터 이더넷 3 Ipv4 주소
-    private  String BASE_URL = "http://10.90.0.110:3000";
+    private  String BASE_URL = "http://123.214.18.194:3000";
     //private  String BASE_URL = "http://192.168.115.193:3000";
     // 에뮬레이터로 실행 시(그냥 루프백 아이피라 보면 됨)
     //private  String BASE_URL = "http://10.0.2.2:3000";
@@ -85,7 +85,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     }
     private void initView() {
-
+        tvScore = (TextView)findViewById(R.id.score);
         profileImage = (ImageView)findViewById(R.id.profileImage);
         buttonLogout = (Button)findViewById(R.id.logout);
         buttonUpload = (Button)findViewById(R.id.upload);
@@ -139,6 +139,7 @@ public class MyPageActivity extends AppCompatActivity {
 
     }
     private void handleGetReview(){
+        ArrayList<Double> scores = new ArrayList<Double>();
         Handler mHandler = new Handler();
         mHandler.postDelayed(new Runnable()  {
             public void run() {
@@ -155,6 +156,18 @@ public class MyPageActivity extends AppCompatActivity {
                                 // 시간 지난 후 실행할 코딩
                                 rs = response.body(); // response.body에는 모든 요청 객체가 배열로 담겨져 있음
                                 Log.e("Size", String.valueOf(rs.size()));
+                                for(int i=0;i<rs.size();i++){
+                                    Double s = Double.parseDouble(rs.get(i).getReviewRate());
+                                    scores.add(s);
+                                }
+
+                                double temp = 0;
+                                for(int i=0;i<scores.size();i++){
+                                    temp += scores.get(i);
+                                }
+                                temp /= scores.size();
+                                String score = String.valueOf(temp).toString().substring(0, 3);
+                                tvScore.setText(score);
                                 recycleTest(); // 이제 받은 내용으로 recycler view 만들기
 
                             }
