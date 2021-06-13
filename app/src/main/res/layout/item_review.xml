@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="75dp">
 
 
     <LinearLayout
@@ -27,8 +27,8 @@
 
             <ImageView
                 android:id="@+id/review_profile"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@android:mipmap/sym_def_app_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -46,16 +46,17 @@
 
         <TextView
             android:id="@+id/review_content"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="left"
+            android:layout_gravity="left"
             android:hint="asfdasdfsdfasfasdf"
             android:lines="10"
             android:maxWidth="200dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -64,13 +65,14 @@
 
             <TextView
                 android:id="@+id/review_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:hint="날짜날짜날날짜짜" />
 
             <TextView
                 android:layout_marginTop="25dp"
                 android:id="@+id/review_rate"
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="점수점수점수점수" />
