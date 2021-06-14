@@ -33,7 +33,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/mapbutton1"
+                android:id="@+id/infobutton1"
                 android:layout_width="42dp"
                 android:layout_height="51dp"
                 android:layout_marginEnd="20dp"
@@ -55,7 +55,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.863"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mapbutton1" />
+                app:layout_constraintTop_toBottomOf="@+id/infobutton1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -124,7 +124,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mapbutton1" />
+                app:layout_constraintTop_toBottomOf="@+id/infobutton1" />
 
         </LinearLayout>
 
@@ -160,7 +160,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mapbutton1" />
+                app:layout_constraintTop_toBottomOf="@+id/infobutton1" />
 
         </LinearLayout>
 
@@ -197,7 +197,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mapbutton1" />
+                app:layout_constraintTop_toBottomOf="@+id/infobutton1" />
 
         </LinearLayout>
 
@@ -233,7 +233,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mapbutton1" />
+                app:layout_constraintTop_toBottomOf="@+id/infobutton1" />
 
         </LinearLayout>
 

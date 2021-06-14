@@ -54,7 +54,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
     Button buttonSubmit;
     Button buttonGet;
     Button buttonfindLoc;
-    ImageView buttonMap;
+    ImageView buttonInfo;
     // HTTP 통신을 위한 라이브러리
     private Retrofit retrofit;
     // 접속할 IP 주소 = BASE_URL : 휴대폰으로 실행 시 나의 IP 주소
@@ -105,7 +105,7 @@ public class DeliverRequestActivity extends AppCompatActivity {
         contentEditTxt = (EditText) findViewById(R.id.content);
         buttonSubmit = (Button) findViewById(R.id.submit);
 
-        buttonMap = (ImageView) findViewById(R.id.mapbutton);
+        buttonInfo = (ImageView) findViewById(R.id.mapbutton);
         buttonfindLoc = (Button) findViewById(R.id.find_loc2);
 
         buttonUpload = (Button) findViewById(R.id.upload);
@@ -197,10 +197,10 @@ public class DeliverRequestActivity extends AppCompatActivity {
             }
         });
 
-        buttonMap.setOnClickListener(new View.OnClickListener() {
+        buttonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ShowMapActivity.class));
+                startActivity(new Intent(getApplicationContext(), ShowInfoActivity.class));
             }
         });
 

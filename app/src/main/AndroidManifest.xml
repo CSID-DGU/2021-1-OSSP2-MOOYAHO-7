@@ -22,7 +22,7 @@
         <activity android:name=".SettingActivity" />
         <activity android:name=".DeliverRequestActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ShowMapActivity" />
+        <activity android:name=".ShowInfoActivity" />
         <activity android:name=".FindMapActivity" />
         <activity android:name=".friendsList" />
         <activity android:name=".chat.MessageActivity" />

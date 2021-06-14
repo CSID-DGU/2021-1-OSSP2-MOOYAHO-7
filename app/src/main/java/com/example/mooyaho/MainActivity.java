@@ -2,7 +2,6 @@ package com.example.mooyaho;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton buttonRequest;
     ImageButton buttonChatting;
     ImageButton buttonMyPage;
-    ImageView buttonMap;
+    ImageView buttonInfo;
     SwipeRefreshLayout swipeRefreshLayout;
     private RetrofitInterface retrofitInterface;
     private Retrofit retrofit;
@@ -126,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRequest = (ImageButton) findViewById(R.id.request);
         buttonChatting = (ImageButton) findViewById(R.id.chatting);
         buttonMyPage = (ImageButton) findViewById(R.id.mypage);
-        buttonMap = (ImageView) findViewById(R.id.mapbutton1);
+        buttonInfo = (ImageView) findViewById(R.id.infobutton1);
         //buttonChatList = (Button) findViewById(R.id.ChatList);
 
         // retrofit
@@ -175,10 +174,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), MyPageActivity.class));
             }
         });
-        buttonMap.setOnClickListener(new View.OnClickListener() { // 지도 이동 버튼
+        buttonInfo.setOnClickListener(new View.OnClickListener() { // 지도 이동 버튼
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ShowMapActivity.class));
+                startActivity(new Intent(getApplicationContext(), ShowInfoActivity.class));
             }
         });
 /*        buttonChatList.setOnClickListener(new View.OnClickListener() { // chatlist 이동 버튼
