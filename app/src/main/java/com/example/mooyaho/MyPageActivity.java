@@ -15,9 +15,11 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +71,13 @@ public class MyPageActivity extends AppCompatActivity {
     TextView tvScore;
     RecyclerView recyclerView;
     private ReviewAdapter reviewAdapter;
+
+
+    RecyclerView myRequestRecycler;
+    PostAdapter postAdapter;
+
     List<Review> rs;
+    List<PostResult> prs;
 
     private RetrofitInterface retrofitInterface;
     private Retrofit retrofit;
@@ -148,8 +156,76 @@ public class MyPageActivity extends AppCompatActivity {
 
         downloadImage();
         handleGetReview();
+        handleGetRequest();
 
     }
+
+    private void recycleRequest(){
+        myRequestRecycler = findViewById(R.id.my_request);
+        myRequestRecycler.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        myRequestRecycler.setLayoutManager(linearLayoutManager);
+        myRequestRecycler.setFocusable(false);
+
+        postAdapter = new PostAdapter(this);
+        myRequestRecycler.setAdapter(postAdapter);
+        postAdapter.setData(getDataPost());
+
+        RecyclerDecoration spaceDecoration = new RecyclerDecoration(5);
+        myRequestRecycler.addItemDecoration(spaceDecoration);
+    }
+
+    public ArrayList<PostResult> getDataPost(){
+        ArrayList<PostResult> list = new ArrayList<>();
+
+        for(int i=0;i<prs.size();i++){
+            PostResult newPost
+                    = new PostResult(prs.get(i).getPostID(),
+                    prs.get(i).getUserEmail(),
+                    prs.get(i).getPostTitle(),
+                    prs.get(i).getPostContent(),
+                    prs.get(i).getPostStartLatitude(),
+                    prs.get(i).getPostStartLongitude(),
+                    prs.get(i).getPostEndLatitude(),
+                    prs.get(i).getPostEndLongitude()
+            );
+            list.add(newPost);
+            //Log.e("rs", rs.get(i).getReviewContent());
+        }
+        return list;
+    }
+
+    private void handleGetRequest(){
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable()  {
+            public void run() {
+                // 시간 지난 후 실행할 코딩
+                HashMap<String, String> map = new HashMap<>();
+                map.put("userEmail", user.getEmail());
+                Log.e("rs", user.getEmail());
+                Call<List<PostResult>> call = retrofitInterface.executeGetRequest(map); // getAll로 서버와 통신
+                call.enqueue(new Callback<List<PostResult>>() {
+                    @Override
+                    public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
+                        prs = response.body();
+
+                        Log.e("rs", prs.get(0).getPostContent());
+
+                        recycleRequest();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<PostResult>> call, Throwable t) {
+
+                    }
+                });
+
+            }
+        }, 500); // 0.5초후
+    }
+
     private void handleGetReview(){
         ArrayList<Double> scores = new ArrayList<Double>();
         Handler mHandler = new Handler();
@@ -187,7 +263,7 @@ public class MyPageActivity extends AppCompatActivity {
                                 recycleTest(); // 이제 받은 내용으로 recycler view 만들기
 
                             }
-                        }, 500); // 0.5초후
+                        }, 0); // 0.5초후
                     }
 
                     @Override
@@ -200,6 +276,8 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
     private void recycleTest(){
+
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

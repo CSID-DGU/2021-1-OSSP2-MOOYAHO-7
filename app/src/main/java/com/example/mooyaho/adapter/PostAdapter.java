@@ -130,6 +130,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 Picasso.get().load(uri).into(holder.postImage);
                 Picasso.get().load(uri).into(holder.postImage2);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
         });
 
         holder.tvUser.setOnClickListener(new View.OnClickListener() {

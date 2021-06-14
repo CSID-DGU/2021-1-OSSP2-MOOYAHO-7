@@ -107,6 +107,8 @@ public class ReviewTestActivity extends AppCompatActivity {
     }
 
     public void handleReview(){
+
+
         String reviewSender = sender.getText().toString();
         String reviewReceiver = receiver.getText().toString();
         String reviewContent = content.getText().toString();

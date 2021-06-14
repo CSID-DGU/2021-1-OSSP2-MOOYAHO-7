@@ -30,4 +30,8 @@ public interface RetrofitInterface { // 노드-mysql 연동을 위한 Retrofit �
     @POST("/getReview")
     Call<List<Review>> executeGetReview(@Body HashMap<String, String> map);
 
+    @POST("/getRequest")
+    Call<List<PostResult>> executeGetRequest(@Body HashMap<String, String> map);
+
+
 }

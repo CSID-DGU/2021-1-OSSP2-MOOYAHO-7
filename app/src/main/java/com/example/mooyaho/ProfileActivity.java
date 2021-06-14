@@ -142,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 recycleTest(); // 이제 받은 내용으로 recycler view 만들기
 
                             }
-                        }, 500); // 0.5초후
+                        }, 0); // 0.5초후
                     }
 
                     @Override
