@@ -9,22 +9,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
+        android:layout_height="550dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="296dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10">
 
+            <EditText
+                android:id="@+id/caution"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="false">
+
+            </EditText>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/caution"
-        android:layout_width="match_parent"
-        android:layout_height="549dp" />
+
 </LinearLayout>
