@@ -169,8 +169,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             public void onClick(View view) {
 
                 AlertDialog.Builder dlg = new AlertDialog.Builder(view.getContext());
-                dlg.setTitle("계발에서 개발까지"); //제목
-                dlg.setMessage("안녕하세요 계발에서 개발까지 입니다."); // 메시지
+                dlg.setTitle("게사자가 자신이 아니면 삭제할 수 없습니다."); //제목
+                dlg.setMessage("정말로 삭제하시겠습니까?"); // 메시지
                 dlg.setIcon(R.drawable.logo); // 아이콘 설정
 
                 dlg.setPositiveButton("취소", new DialogInterface.OnClickListener() {

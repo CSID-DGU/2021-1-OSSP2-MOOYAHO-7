@@ -56,16 +56,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
-                android:layout_marginTop="10dp"
-                android:text="제목" />
+                android:layout_marginTop="5dp"
+                android:text="제목"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/post_start2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
-                android:layout_marginTop="30dp"
-                android:text="시작 위치" />
+                android:layout_marginTop="25dp"
+                android:text="시작 위치"
+                android:textSize="10sp"/>
 
             <TextView
                 android:id="@+id/post_end2"
@@ -73,7 +75,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
                 android:layout_marginTop="50dp"
-                android:text="도착 위치" />
+                android:text="도착 위치"
+                android:textSize="10sp"/>
 
             <TextView
                 android:id="@+id/tv_user2"
@@ -81,7 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="200dp"
                 android:layout_marginTop="70dp"
-                android:text="작성자 : " />
+                android:text="작성자 : "
+                android:textSize="10sp"/>
 
             <TextView
                 android:id="@+id/tv_content_post2"
@@ -97,7 +101,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="200dp"
                 android:layout_marginTop="300dp"
-
                 android:text="요청 수락" />
 
             <Button
@@ -143,16 +146,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
-                android:layout_marginTop="10dp"
-                android:text="제목" />
+                android:layout_marginTop="5dp"
+                android:text="제목"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/post_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
-                android:layout_marginTop="30dp"
-                android:text="시작 위치" />
+                android:layout_marginTop="25dp"
+                android:text="시작 위치"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/post_end"
@@ -160,16 +165,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
                 android:layout_marginTop="50dp"
-                android:text="도착 위치" />
+                android:text="도착 위치"
+                android:textSize="10sp" />
 
-<!--
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:layout_marginTop="70dp"
-                android:text="가격" />
--->
+            <!--
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="90dp"
+                            android:layout_marginTop="70dp"
+                            android:text="가격" />
+            -->
 
             <TextView
                 android:id="@+id/tv_user"
@@ -177,7 +183,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="200dp"
                 android:layout_marginTop="70dp"
-                android:text="작성자 : " />
+                android:text="작성자 : "
+                android:textSize="10sp" />
         </FrameLayout>
 
     </com.example.mooyaho.FoldingCell>
