@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,9 +31,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mooyaho.MainActivity;
 import com.example.mooyaho.R;
 import com.example.mooyaho.RetrofitInterface;
 import com.example.mooyaho.RetrofitTossInterface;
+import com.example.mooyaho.ReviewTestActivity;
 import com.example.mooyaho.data_class.Chat;
 import com.example.mooyaho.data_class.PostResult;
 import com.example.mooyaho.data_class.PostTossResult;
@@ -42,9 +45,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
@@ -71,6 +76,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MessageActivity extends AppCompatActivity {
+
+    private String receiver = "";
+    private String sender = "";
 
     private String result = "";
     private String destinationUid;
@@ -107,7 +115,7 @@ public class MessageActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final CharSequence[] items = {"토스 송금 링크"};
+                final CharSequence[] items = {"토스 송금 링크", "리뷰 작성하기"};
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MessageActivity.this);
 
@@ -116,7 +124,38 @@ public class MessageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Toast.makeText(getApplicationContext(), items[which], Toast.LENGTH_LONG).show();
-                                showcustomDialog();
+                                if(which == 0)
+                                    showcustomDialog();
+                                else if(which == 1){
+
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    Query query = FirebaseDatabase.getInstance().getReference("Users")
+                                            .orderByChild("uid").equalTo(destinationUid);
+
+                                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if(snapshot.exists()){
+                                                String receiverEmail = "";
+
+                                                for(DataSnapshot snap : snapshot.getChildren()){
+                                                    User user = snap.getValue(User.class);
+                                                    receiver = user.getEmail();
+                                                }
+
+                                                Intent intent3 = new Intent(v.getContext(), ReviewTestActivity.class);
+                                                intent3.putExtra("sender", user.getEmail().toString());
+                                                intent3.putExtra("receiver", receiver.toString());
+
+                                                startActivity(intent3);
+                                            }
+                                        }
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
                             }
                         });
                 AlertDialog dialog = builder.create();

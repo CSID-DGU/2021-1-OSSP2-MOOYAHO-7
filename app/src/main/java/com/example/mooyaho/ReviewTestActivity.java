@@ -48,6 +48,11 @@ public class ReviewTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_test);
 
+
+        Intent intent = getIntent();
+        String receivers = intent.getStringExtra("receiver");
+        String senders = intent.getStringExtra("sender");
+
         // Spinner
         Spinner rateSpinner = (Spinner)findViewById(R.id.review_rate);
         ArrayAdapter rateAdapter = ArrayAdapter.createFromResource(this,
@@ -66,6 +71,9 @@ public class ReviewTestActivity extends AppCompatActivity {
         sender = findViewById(R.id.review_sender);
         content = findViewById(R.id.review_content);
         submit = findViewById(R.id.review_submit);
+
+        receiver.setText(receivers);
+        sender.setText(senders);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override

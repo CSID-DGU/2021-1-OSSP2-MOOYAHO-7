@@ -64,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageButton buttonRequest;
     ImageButton buttonChatting;
     ImageButton buttonMyPage;
-
+    Button logout;
 
     FirebaseUser user;
     DatabaseReference databaseReference;
@@ -235,6 +235,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initView() {
 
+        logout = (Button) findViewById(R.id.logout);
         buttonHome = (ImageButton) findViewById(R.id.home);
         buttonRequest = (ImageButton) findViewById(R.id.request);
         buttonChatting = (ImageButton) findViewById(R.id.chatting);
@@ -263,6 +264,17 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setButtonClickListener() {
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+
         buttonHome.setOnClickListener(new View.OnClickListener() { // 홈버튼
             @Override
             public void onClick(View v) {

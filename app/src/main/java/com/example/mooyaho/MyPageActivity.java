@@ -204,14 +204,14 @@ public class MyPageActivity extends AppCompatActivity {
                 // 시간 지난 후 실행할 코딩
                 HashMap<String, String> map = new HashMap<>();
                 map.put("userEmail", user.getEmail());
-                Log.e("rs", user.getEmail());
+                //Log.e("rs", user.getEmail());
                 Call<List<PostResult>> call = retrofitInterface.executeGetRequest(map); // getAll로 서버와 통신
                 call.enqueue(new Callback<List<PostResult>>() {
                     @Override
                     public void onResponse(Call<List<PostResult>> call, Response<List<PostResult>> response) {
                         prs = response.body();
 
-                        Log.e("rs", prs.get(0).getPostContent());
+                        //Log.e("rs", prs.get(0).getPostContent());
 
                         recycleRequest();
                     }
@@ -268,7 +268,7 @@ public class MyPageActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<List<Review>> call, Throwable t) {
-                        Log.e("Size", "Failed");
+                        //Log.e("Size", "Failed");
                     }
                 });
             }
@@ -335,10 +335,9 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) { // 로그아웃 버튼
 
 
-                startActivity(new Intent(MyPageActivity.this, ReviewTestActivity.class));
-/*             FirebaseAuth.getInstance().signOut();
+             FirebaseAuth.getInstance().signOut();
              startActivity(new Intent(MyPageActivity.this, LoginActivity.class));
-             finish();*/
+             finish();
             }
         });
 

@@ -231,6 +231,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
+
+
                 Intent intent3 = new Intent(view.getContext(), MessageActivity.class);
 
                 Query query = FirebaseDatabase.getInstance().getReference("Users")
