@@ -27,6 +27,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ReviewTestActivity extends AppCompatActivity {
+
+    private Spinner rateSpinner;
     private TextView receiver;
     private TextView sender;
     private TextView content;
@@ -54,13 +56,12 @@ public class ReviewTestActivity extends AppCompatActivity {
         String senders = intent.getStringExtra("sender");
 
         // Spinner
-        Spinner rateSpinner = (Spinner)findViewById(R.id.review_rate);
+        rateSpinner = (Spinner)findViewById(R.id.review_rate);
         ArrayAdapter rateAdapter = ArrayAdapter.createFromResource(this,
                 R.array.rate, android.R.layout.simple_spinner_item);
         rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         rateSpinner.setAdapter(rateAdapter);
 
-        rate = rateSpinner.getSelectedItem().toString(); // rate 값을 콤보박스에서 가져옴.
         // end Spinner
 
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
@@ -85,6 +86,7 @@ public class ReviewTestActivity extends AppCompatActivity {
     }
 
     public void handleGetReview(){
+
         String reviewSender = sender.getText().toString();
         String reviewReceiver = receiver.getText().toString();
         String reviewContent = content.getText().toString();
@@ -120,6 +122,7 @@ public class ReviewTestActivity extends AppCompatActivity {
         String reviewSender = sender.getText().toString();
         String reviewReceiver = receiver.getText().toString();
         String reviewContent = content.getText().toString();
+        rate = rateSpinner.getSelectedItem().toString(); // rate 값을 콤보박스에서 가져옴.
         String reviewRate = rate;
         String reviewDate = "210612";
         HashMap<String, String> map = new HashMap<>();

@@ -118,14 +118,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
 
         double rate = Double.parseDouble(review.getReviewRate());
         String star = "";
-        for(int i=0;i<rate;i++){
-            star += "★";
-        }
-
-        int r = 5 - star.length();
-        for(int i=0;i<r;i++){
-            star += "☆";
-        }
+        String rate_string = String.valueOf(rate);
+        star = rate_string.charAt(0)+" / 5";
 
         holder.reviewRate.setText(star);
         holder.reviewContent.setText(review.getReviewContent());
