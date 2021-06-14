@@ -1,6 +1,7 @@
 package com.example.mooyaho;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -8,7 +9,13 @@ import android.widget.ImageView;
 
 import com.example.mooyaho.adapter.PostAdapter;
 import com.example.mooyaho.data_class.PostResult;
+import com.google.firebase.database.annotations.NotNull;
+import com.naver.maps.map.LocationTrackingMode;
+import com.naver.maps.map.NaverMap;
+import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.util.FusedLocationSource;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +31,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     ImageButton buttonHome;
     ImageButton buttonRequest;
     ImageButton buttonChatting;
@@ -43,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
     private PostAdapter postAdapter;
     List<PostResult> rs;
 
+    private NaverMap naverMap;
+
+    private FusedLocationSource locationSource;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
+
+    private double lat; // 현재 자신의 위치 위도
+    private double lon; // 현재 자신의 위치 경도
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +147,20 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         retrofitInterface = retrofit.create(RetrofitInterface.class);
+        locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+    }
+
+    private void myLocationSearch(@NonNull NaverMap naverMap) {
+        naverMap.setLocationSource(locationSource);
+        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+
+        naverMap.addOnLocationChangeListener(new NaverMap.OnLocationChangeListener() {
+            @Override
+            public void onLocationChange(@NotNull Location location) {
+                lat = location.getLatitude();
+                lon = location.getLongitude();
+            }
+        });
     }
 
     private void setButtonClickListener() {
@@ -186,5 +214,26 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), ChatList.class));
             }
         });*/
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,  @NonNull int[] grantResults) {
+        if (locationSource.onRequestPermissionsResult(
+                requestCode, permissions, grantResults)) {
+            if (!locationSource.isActivated()) { // 권한 거부됨
+                naverMap.setLocationTrackingMode(LocationTrackingMode.None);
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(
+                requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onMapReady(@NonNull NaverMap naverMap) {
+        this.naverMap = naverMap;
+        naverMap.setLocationSource(locationSource);
+        myLocationSearch(naverMap);
     }
 }

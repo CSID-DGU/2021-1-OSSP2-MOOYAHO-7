@@ -196,7 +196,7 @@ public class ShowMapFragment extends DialogFragment implements View.OnClickListe
     }
 
     private void endLocationMarker(@NonNull NaverMap naverMap) {
-        // start 위치 마커 찍기
+        // end 위치 마커 찍기
         LatLng point = new LatLng(endLatitude, endLongitude);
 
         marker2.setPosition(point);
