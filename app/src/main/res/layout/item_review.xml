@@ -35,6 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+
                 android:id="@+id/review_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,11 +51,13 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:layout_gravity="left"
+            android:layout_marginLeft="30dp"
             android:hint="asfdasdfsdfasfasdf"
             android:lines="10"
             android:maxWidth="200dp" />
 
         <LinearLayout
+            android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"

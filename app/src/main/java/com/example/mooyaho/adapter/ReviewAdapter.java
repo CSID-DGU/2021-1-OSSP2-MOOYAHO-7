@@ -1,6 +1,7 @@
 package com.example.mooyaho.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mooyaho.R;
 import com.example.mooyaho.RetrofitInterface;
+import com.example.mooyaho.ReviewTestActivity;
 import com.example.mooyaho.data_class.PostResult;
 import com.example.mooyaho.data_class.Review;
 import com.example.mooyaho.data_class.User;
@@ -46,6 +48,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
     private String userID;
     StorageReference storageReference;
     String postID;
+    String nickname = "";
+
     private Context mContext;
     private ArrayList<Review> mListReview;
     public ReviewAdapter(Context mContext){
@@ -83,7 +87,33 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
         retrofitInterface = retrofit.create(RetrofitInterface.class);
         storageReference = FirebaseStorage.getInstance().getReference(); // storage 정보
 
-        holder.reviewName.setText(review.getReviewSender());
+
+        Query query = FirebaseDatabase.getInstance().getReference("Users")
+                .orderByChild("email").equalTo(review.getReviewSender());
+
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String receiverEmail = "";
+
+                    for(DataSnapshot snap : snapshot.getChildren()){
+                        User user = snap.getValue(User.class);
+                        nickname = user.getNickname();
+                    }
+
+                    holder.reviewName.setText(nickname);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
         holder.reviewDate.setText(review.getReviewDate());
 
         double rate = Double.parseDouble(review.getReviewRate());
@@ -100,9 +130,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewHold
         holder.reviewRate.setText(star);
         holder.reviewContent.setText(review.getReviewContent());
 
-        Query query = FirebaseDatabase.getInstance().getReference("Users")
+        Query query2 = FirebaseDatabase.getInstance().getReference("Users")
                 .orderByChild("email").equalTo(review.getReviewSender());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
