@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp">
@@ -29,7 +29,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp">
@@ -53,18 +53,31 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp">
 
-        ﻿<Spinner
-        android:id="@+id/review_rate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="content" />
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="평점" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/review_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="content" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="350dp"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp">
@@ -73,10 +86,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="10"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/content"
+                android:id="@+id/review_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="337dp"
                 android:hint="content" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
