@@ -6,20 +6,47 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="380dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="E-mail(@donggukr.edu 형식으로)"
+        android:hint="E-mail(.edu 형식으로)"
         android:inputType="textEmailAddress"
         android:textSize="18sp" />
 
-    <EditText android:layout_height="wrap_content" android:layout_width="380dp" android:layout_marginTop="25dp" android:id="@+id/nickname" android:textSize="18sp" android:inputType="text" android:hint="닉네임" android:ems="10" android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/nickname"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="닉네임"
+        android:inputType="text"
+        android:textSize="18sp" />
 
-    <EditText android:layout_height="wrap_content" android:layout_width="380dp" android:layout_marginTop="25dp" android:id="@+id/password" android:textSize="18sp" android:inputType="textPassword" android:hint="비밀번호" android:ems="10" android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:textSize="18sp" />
 
-    <EditText android:layout_height="wrap_content" android:layout_width="380dp" android:layout_marginTop="25dp" android:id="@+id/confirm" android:textSize="18sp" android:inputType="textPassword" android:hint="비밀번호 확인" android:ems="10" android:layout_gravity="center"/>
+    <EditText
+        android:id="@+id/confirm"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        android:textSize="18sp" />
 
     <Button android:layout_height="50dp" android:layout_width="150dp" android:layout_marginTop="20dp" android:id="@+id/register" android:textSize="18sp" android:layout_gravity="center" app:backgroundTint="#424242" android:backgroundTint="#424242" android:textStyle="normal" android:textColor="#ffffff" android:text="Sign Up"/>
 
