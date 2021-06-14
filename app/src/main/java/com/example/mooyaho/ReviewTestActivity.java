@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +30,7 @@ public class ReviewTestActivity extends AppCompatActivity {
     private TextView receiver;
     private TextView sender;
     private TextView content;
-    private TextView rate;
+    private String rate;
     private Button submit;
     // HTTP 통신을 위한 라이브러리
     private Retrofit retrofit;
@@ -46,6 +48,16 @@ public class ReviewTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_test);
 
+        // Spinner
+        Spinner rateSpinner = (Spinner)findViewById(R.id.review_rate);
+        ArrayAdapter rateAdapter = ArrayAdapter.createFromResource(this,
+                R.array.rate, android.R.layout.simple_spinner_item);
+        rateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        rateSpinner.setAdapter(rateAdapter);
+
+        rate = rateSpinner.getSelectedItem().toString(); // rate 값을 콤보박스에서 가져옴.
+        // end Spinner
+
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         retrofitInterface = retrofit.create(RetrofitInterface.class);
@@ -53,7 +65,6 @@ public class ReviewTestActivity extends AppCompatActivity {
         receiver = findViewById(R.id.review_receiver);
         sender = findViewById(R.id.review_sender);
         content = findViewById(R.id.review_content);
-        rate = findViewById(R.id.review_rate);
         submit = findViewById(R.id.review_submit);
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +80,7 @@ public class ReviewTestActivity extends AppCompatActivity {
         String reviewSender = sender.getText().toString();
         String reviewReceiver = receiver.getText().toString();
         String reviewContent = content.getText().toString();
-        String reviewRate = rate.getText().toString();
+        String reviewRate = rate;
         String reviewDate = "210612";
         HashMap<String, String> map = new HashMap<>();
         map.put("reviewReceiver", reviewReceiver);
@@ -99,7 +110,7 @@ public class ReviewTestActivity extends AppCompatActivity {
         String reviewSender = sender.getText().toString();
         String reviewReceiver = receiver.getText().toString();
         String reviewContent = content.getText().toString();
-        String reviewRate = rate.getText().toString();
+        String reviewRate = rate;
         String reviewDate = "210612";
         HashMap<String, String> map = new HashMap<>();
         map.put("reviewSender", reviewSender);
