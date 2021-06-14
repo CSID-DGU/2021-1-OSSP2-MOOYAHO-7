@@ -30,11 +30,18 @@ import com.example.mooyaho.ProfileActivity;
 import com.example.mooyaho.R;
 import com.example.mooyaho.RetrofitInterface;
 import com.example.mooyaho.ShowMapFragment;
+import com.example.mooyaho.chat.MessageActivity;
 import com.example.mooyaho.data_class.PostResult;
+import com.example.mooyaho.data_class.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -157,7 +164,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             }
         });
 
-
         holder.buttonDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -220,6 +226,49 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             }
 
         });
+
+
+        holder.postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent3 = new Intent(view.getContext(), MessageActivity.class);
+
+                Query query = FirebaseDatabase.getInstance().getReference("Users")
+                        .orderByChild("email").equalTo(post.getUserEmail());
+
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            String destinationUid = "";
+                            
+                            for(DataSnapshot snap : snapshot.getChildren()){
+                                User user = snap.getValue(User.class);
+                                destinationUid = user.getUid();
+                            }
+
+                            if(destinationUid.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                                Toast.makeText(view.getContext(), "자신의 요청은 수락할 수 없습니다.", Toast.LENGTH_LONG).show();
+
+                            }
+                            else {
+                                intent3.putExtra("destinationUid", destinationUid);
+                                mContext.startActivity(intent3);
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+        });
+
 
         holder.foldingCell.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -306,12 +355,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private TextView end;
         private TextView end2;
         private Button buttonDelete;
+        private Button postButton;
 
         private TextView PriceEditText;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            postButton = itemView.findViewById(R.id.post_button);
             foldingCell = itemView.findViewById(R.id.folding_cell);
             tvPostTitle = itemView.findViewById(R.id.tv_title_post);
             tvPostContnet = itemView.findViewById(R.id.tv_content_post);
