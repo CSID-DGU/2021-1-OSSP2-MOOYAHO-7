@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
+/MOOYAHO-node/node_modules
